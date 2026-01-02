@@ -17,7 +17,7 @@ public class Indirizzo {
     private String città;
 
     /**
-     * Empty Constructor (necessary for the Java Bean specify)
+     * Empty constructor
      */
     public Indirizzo() {
 
@@ -53,8 +53,8 @@ public class Indirizzo {
     }
 
     /***
-     *
-     * @param id Set the Unique identifier of the address
+     * Set the Unique identifier of the address
+     * @param id
      */
 
     public void setId(int id) {
@@ -71,8 +71,8 @@ public class Indirizzo {
     }
 
     /**
-     *
-     * @param via Set the name of the street or the name of square
+     * Set the name of the street or the name of square
+     * @param via
      */
 
     public void setVia(String via) {
@@ -89,8 +89,8 @@ public class Indirizzo {
     }
 
     /***
-     *
-     * @param numCiv Set the civic number.
+     * Set the civic number.
+     * @param numCiv
      */
 
     public void setNumCiv(int numCiv) {
@@ -107,8 +107,8 @@ public class Indirizzo {
     }
 
     /***
-     *
-     * @param cap Set postal code
+     * Set postal code
+     * @param cap
      */
     public void setCap(int cap) {
         this.cap = cap;
@@ -124,8 +124,8 @@ public class Indirizzo {
     }
 
     /**
-     *
-     * @param regione Set region
+     * Set region
+     * @param regione
      */
 
     public void setRegione(String regione) {
@@ -142,8 +142,8 @@ public class Indirizzo {
     }
 
     /**
-     *
-     * @param provincia Set province
+     * Set province
+     * @param provincia
      */
     public void setProvincia(String provincia) {
         this.provincia = provincia;
@@ -158,8 +158,8 @@ public class Indirizzo {
     }
 
     /**
-     *
-     * @param città Set city's name
+     * Set city's name
+     * @param città
      */
 
     public void setCittà(String città) {
