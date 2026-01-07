@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
   This jsp file contains code to avoid to writing navbar's code in everyy file
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <nav id="mainNav">
   <a class="home" href="<%=request.getContextPath()%>/index.jsp"><img id="logo" src="<%=request.getContextPath()%>/images/logo.png" alt="Valiant System Homepage" title="Vai alla homepage" ></a>
@@ -27,7 +28,7 @@
         <li class="right"><a href="<%=request.getContextPath()%>/login.jsp" title="Accedi/Registrati"><span class="material-icons">login</span></a></li>
       </c:when>
       <c:when test="${utente != null}">
-        <c:if test = "${utente.username == 'admin'}">
+        <c:if test = "${utente.manager}">
           <li class="right dropdown-hvr">
             <a href="#" title="Menu utente"><span class="material-icons">manage_accounts</span></a>
             <div class="dropdown-content-hvr user-drop-hvr">

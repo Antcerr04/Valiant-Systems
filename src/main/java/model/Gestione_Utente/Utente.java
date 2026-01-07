@@ -165,5 +165,11 @@ public class Utente {
      */
     public void setEmail(String email) {
         this.email = email;
+
+
+    }
+
+    public boolean isManager(){
+        return false;
     }
 }

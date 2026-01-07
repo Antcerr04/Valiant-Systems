@@ -56,28 +56,6 @@ async function validateEmail(input) {
     }
 }
 
-//check if email exists
-async function checkEmailExists(input) {
-    const email = input.value.trim();
-    const feedback = document.querySelector(".feedback-login-email");
-
-    if (email.length > 10) {
-        try {
-            const response = await fetch("Validate?action=checkEmail&email=" + encodeURIComponent(email));
-            const data = await response.text();
-            const exists = data === "0"; // 0 = esiste
-
-            feedback.style.display = exists ? "none" : "block";
-            return exists;
-        } catch (error) {
-            console.error("Errore nella validazione email reset", error);
-            return false;
-        }
-    } else {
-        feedback.style.display = "none";
-        return false;
-    }
-}
 
 //dynamically updates password criteria
 function initPasswordValidation(inputPassword) {
@@ -136,31 +114,34 @@ async function initFormValidation(form) {
 }
 
 //manage the reset password form
-async function initPasswordResetValidation(form) {
-    const email = form.querySelector("#reset-email");
-    const inputPassword = form.querySelector("#resetPassword");
 
-    initPasswordValidation(inputPassword);
+    async function initPasswordResetValidation(form) {
+        // Cerchiamo l'input con l'ID corretto
+        const inputPassword = form.querySelector("#resetPassword");
 
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const emailExists = await checkEmailExists(email);
-        const passwordOk = validatePassword(inputPassword.value);
-
-        if (!emailExists) {
-            alert("Email non trovata");
-            return;
+        if (inputPassword) {
+            // Attiva la comparsa dei criteri (valid/invalid)
+            initPasswordValidation(inputPassword);
         }
 
-        if (!passwordOk) {
-            alert("Formato password non corretto, riprova");
-            return;
-        }
+        form.addEventListener("submit", function (event) {
+            // Prendiamo il valore attuale della password al momento del click
+            const passwordValue = inputPassword.value;
 
-        form.submit();
-    });
-}
+            // Controlliamo se la password rispetta i criteri
+            const passwordOk = validatePassword(passwordValue);
+
+            if (!passwordOk) {
+                event.preventDefault(); // Blocca l'invio del form
+                alert("La nuova password non rispetta i criteri di sicurezza.");
+                return;
+            }
+
+            // Se arriviamo qui, il form viene inviato correttamente alla Servlet Modifica
+            console.log("Validazione superata, invio in corso...");
+        });
+    }
+
 
 
 //Initialization

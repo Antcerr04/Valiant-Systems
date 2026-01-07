@@ -36,3 +36,42 @@ function caricaRegioni() {
 }
 
 caricaRegioni();
+
+function handleInviaCodice() {
+    const email=document.getElementById("reset-email").value;
+    const btn= document.getElementById("btn-invia-codice");
+    const errorMsg= document.getElementById("email-not-foud");
+
+    if(email == "" || !email.includes("@")) {
+        alert("Inserisci un'email valida");
+        return;
+    }
+
+    btn.innerText="Invio in corso...";
+    btn.disabled=true;
+
+    //Chiamata AJAX alla servlet che gaantisce l'invio
+    fetch("EmailServlet", {
+        method : "POST",
+        headers : {"Content-Type": "application/x-www-form-urlencoded"},
+        body : "action=send&email="+encodeURIComponent(email)
+    })
+        .then(response=> response.json())
+        .then(data => {
+            if(data.status == "success") {
+            document.getElementById("step-email").style.display="none";
+            document.getElementById("step-verification").style.display="block";
+            alert("Controlla la tua email! Ti abbiamo inviato il codice.");
+        } else {
+            //Se la servlet risponde con errore
+        if(errorMsg) errorMsg.style.display = "block";
+        btn.innerText = "Invia codice di verifica";
+        btn.disabled = false;
+    }
+    })
+    .catch(error => {
+        console.error(("Errore",error));
+        alert("Errore durante l'invio della mail");
+        btn.disabled=false;
+    });
+}

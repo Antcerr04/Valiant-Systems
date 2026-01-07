@@ -25,4 +25,7 @@ public class Manager extends Utente {
         super(nome, cognome, username, password, email);
     }
 
+    public boolean isManager() {
+        return true;
+    }
 }

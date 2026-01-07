@@ -16,6 +16,7 @@
     <%@include file="WEB-INF/results/header.jsp" %>
     <link rel="stylesheet" href="css/index-style.css" type="text/css">
     <script src="javascript/formvalidate.js" defer></script> <!--Ancora da definire-->
+    <script src="javascript/utility.js" defer></script>
     <style>
         .valid {
             color: green;
@@ -76,22 +77,32 @@ font-size: 18px;">
 
             <!--Form to show when client click on "Password dimenticata"-->
             <form action="Modifica" method="post" id="form-reset" name="update" style="display: none">
-                <input type="hidden" name="source" value="password">
                 <h1>Resetta password</h1>
                 <input type="hidden" name="source" value="reset">
-                <label for="reset-email">E-mail</label>
-                <input type="email" id="reset-email" maxlength="75" required name="email" style="width: 100%;"
-                       oninput="checkEmailExist(this)"><br>
-                <p class="feedback-login-email" style="color: red; display: none">Email non esistente</p>
-                <label for="resetPassword">Nuova password</label>
-                <input type="password" id="resetPassword" name="newPassword" style="width: 100%" required><br>
-                <div id="feedback" style="display: none">
-                    <p id="lenght" class="invalid">Almeno 8 caratteri</p>
-                    <p id="uppercase" class="invalid">Almeno una lettera maiuscola</p>
-                    <p id="number" class="invalid">Almeno un numero</p>
-                    <p id="special" class="invalid">Almeno un carattere speciale (!@#$...)</p>
+
+                <div id="step-email">
+                    <label for="reset-email">E-mail</label>
+                    <input type="email" id="reset-email" maxlength="75" required name="email" style="width: 100%">
+                    <p id="email-not-found" style="color: red; display: none"> Email non trovata nel sistema</p>
+                    <button type="button" class="btnlog hbutton" id="btn-invia-codice" onclick="handleInviaCodice()" style="margin-top: 10px">
+                        Invia codice di verifica
+                    </button>
                 </div>
-                <input type="submit" class="red btnlog hbutton" value="Reset" style="background-color: red">
+
+                <div id="step-verification" style="display: none">
+                    <label for="codice-verifica">Codice di verifica (inviato via email)</label>
+                    <input type="text" id="codice-verifica" name="codice" maxlength="6" style="width: 100%" required>
+
+                    <label for="resetPassword">Nuova password</label>
+                    <input type="password" id="resetPassword" name="newPassword" style="width: 100%" required>
+                    <div id="feedback" style="display: none">
+                        <p id="lenght" class="invalid">Almeno 8 caratteri</p>
+                        <p id="uppercase" class="invalid">Almeno una lettera maiuscola</p>
+                        <p id="number" class="invalid">Almeno un numero</p>
+                        <p id="special" class="invalid">Almeno un carattere speciale (!@#$...)</p>
+                    </div>
+                    <input type="submit" class="red btnlog hbutton" value="Conferma Reset" style="background-color: red;margin-top: 10px">
+                </div>
             </form>
         </fieldset>
     </div>
