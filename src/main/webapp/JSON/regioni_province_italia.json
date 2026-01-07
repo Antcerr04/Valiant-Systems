@@ -1,0 +1,213 @@
+{
+  "regioni": [
+    {
+      "nome": "Abruzzo",
+      "province": [
+        "L'Aquila",
+        "Teramo",
+        "Pescara",
+        "Chieti"
+      ]
+    },
+    {
+      "nome": "Basilicata",
+      "province": [
+        "Potenza",
+        "Matera"
+      ]
+    },
+    {
+      "nome": "Calabria",
+      "province": [
+        "Catanzaro",
+        "Cosenza",
+        "Crotone",
+        "Reggio Calabria",
+        "Vibo Valentia"
+      ]
+    },
+    {
+      "nome": "Campania",
+      "province": [
+        "Napoli",
+        "Salerno",
+        "Caserta",
+        "Avellino",
+        "Benevento"
+      ]
+    },
+    {
+      "nome": "Emilia-Romagna",
+      "province": [
+        "Bologna",
+        "Parma",
+        "Modena",
+        "Reggio Emilia",
+        "Ravenna",
+        "Ferrara",
+        "Piacenza",
+        "Forlì-Cesena",
+        "Rimini"
+      ]
+    },
+    {
+      "nome": "Friuli-Venezia Giulia",
+      "province": [
+        "Trieste",
+        "Udine",
+        "Pordenone",
+        "Gorizia"
+      ]
+    },
+    {
+      "nome": "Lazio",
+      "province": [
+        "Roma",
+        "Latina",
+        "Frosinone",
+        "Rieti",
+        "Viterbo"
+      ]
+    },
+    {
+      "nome": "Liguria",
+      "province": [
+        "Genova",
+        "Imperia",
+        "La Spezia",
+        "Savona"
+      ]
+    },
+    {
+      "nome": "Lombardia",
+      "province": [
+        "Milano",
+        "Bergamo",
+        "Brescia",
+        "Como",
+        "Cremona",
+        "Lecco",
+        "Lodi",
+        "Mantova",
+        "Monza e della Brianza",
+        "Pavia",
+        "Sondrio",
+        "Varese"
+      ]
+    },
+    {
+      "nome": "Marche",
+      "province": [
+        "Ancona",
+        "Ascoli Piceno",
+        "Fermo",
+        "Macerata",
+        "Pesaro e Urbino"
+      ]
+    },
+    {
+      "nome": "Molise",
+      "province": [
+        "Campobasso",
+        "Isernia"
+      ]
+    },
+    {
+      "nome": "Piemonte",
+      "province": [
+        "Torino",
+        "Alessandria",
+        "Asti",
+        "Biella",
+        "Cuneo",
+        "Novara",
+        "Verbano-Cusio-Ossola",
+        "Vercelli"
+      ]
+    },
+    {
+      "nome": "Puglia",
+      "province": [
+        "Bari",
+        "Barletta-Andria-Trani",
+        "Brindisi",
+        "Foggia",
+        "Lecce",
+        "Taranto"
+      ]
+    },
+    {
+      "nome": "Sardegna",
+      "province": [
+        "Cagliari",
+        "Carbonia-Iglesias",
+        "Medio Campidano",
+        "Nuoro",
+        "Oristano",
+        "Sassari",
+        "Sud Sardegna"
+      ]
+    },
+    {
+      "nome": "Sicilia",
+      "province": [
+        "Palermo",
+        "Catania",
+        "Messina",
+        "Agrigento",
+        "Caltanissetta",
+        "Enna",
+        "Ragusa",
+        "Siracusa",
+        "Trapani"
+      ]
+    },
+    {
+      "nome": "Toscana",
+      "province": [
+        "Firenze",
+        "Arezzo",
+        "Grosseto",
+        "Livorno",
+        "Lucca",
+        "Massa-Carrara",
+        "Pisa",
+        "Pistoia",
+        "Prato",
+        "Siena"
+      ]
+    },
+    {
+      "nome": "Trentino-Alto Adige",
+      "province": [
+        "Trento",
+        "Bolzano"
+      ]
+    },
+    {
+      "nome": "Umbria",
+      "province": [
+        "Perugia",
+        "Terni"
+      ]
+    },
+    {
+      "nome": "Valle d'Aosta",
+      "province": [
+        "Aosta"
+      ]
+    },
+    {
+      "nome": "Veneto",
+      "province": [
+        "Venezia",
+        "Verona",
+        "Vicenza",
+        "Padova",
+        "Treviso",
+        "Belluno",
+        "Rovigo"
+      ]
+    }
+  ]
+}

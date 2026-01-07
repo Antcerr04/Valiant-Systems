@@ -3,12 +3,12 @@ package model.Gestione_Utente;
 /**
  * Represents a user's physical address within the system.
  * This class is used as a Bean to manage data relating to geographic location
+ *
  * @author Antonio Cerrone
  * @version 1.0
  */
 
 public class Indirizzo {
-    private int id;
     private String via;
     private int numCiv;
     private int cap;
@@ -25,7 +25,6 @@ public class Indirizzo {
 
     /***
      * Complete Constructor to initialize a new address with all parameters.
-     * @param id Unique Identifier of the address within database
      * @param via Name of the street or of the square
      * @param numCiv civic number of the home
      * @param cap postal code
@@ -33,32 +32,13 @@ public class Indirizzo {
      * @param provincia province
      * @param città name of the city
      */
-    public Indirizzo(int id, String via, int numCiv, int cap, String regione, String provincia, String città) {
-        this.id = id;
+    public Indirizzo(String via, int numCiv, int cap, String regione, String provincia, String città) {
         this.via = via;
         this.numCiv = numCiv;
         this.cap = cap;
         this.regione = regione;
         this.provincia = provincia;
         this.città = città;
-    }
-
-    /***
-     *
-     * @return Unique identifier of the address
-     */
-
-    public int getId() {
-        return id;
-    }
-
-    /***
-     * Set the Unique identifier of the address
-     * @param id
-     */
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     /***
@@ -72,6 +52,7 @@ public class Indirizzo {
 
     /**
      * Set the name of the street or the name of square
+     *
      * @param via
      */
 
@@ -115,7 +96,6 @@ public class Indirizzo {
     }
 
     /**
-     *
      * @return region
      */
 
@@ -125,6 +105,7 @@ public class Indirizzo {
 
     /**
      * Set region
+     *
      * @param regione
      */
 
@@ -133,7 +114,6 @@ public class Indirizzo {
     }
 
     /**
-     *
      * @return province
      */
 
@@ -143,6 +123,7 @@ public class Indirizzo {
 
     /**
      * Set province
+     *
      * @param provincia
      */
     public void setProvincia(String provincia) {
@@ -150,7 +131,6 @@ public class Indirizzo {
     }
 
     /**
-     *
      * @return Name of the city
      */
     public String getCittà() {
@@ -159,6 +139,7 @@ public class Indirizzo {
 
     /**
      * Set city's name
+     *
      * @param città
      */
 

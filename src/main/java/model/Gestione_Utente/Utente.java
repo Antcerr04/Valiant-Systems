@@ -32,20 +32,18 @@ public class Utente {
     /**
      * Complete constructor to initialize a new User
      *
-     * @param nome         name of the user
-     * @param cognome      surname of the user
-     * @param username     username of the user
-     * @param email        email of the user
-     * @param password     password of the user
-     * @param passwordHash encrypted password of the user
+     * @param nome     name of the user
+     * @param cognome  surname of the user
+     * @param username username of the user
+     * @param email    email of the user
+     * @param password password of the user
      */
-    public Utente(String nome, String cognome, String username, String password, String email, String passwordHash) {
+    public Utente(String nome, String cognome, String username, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.passwordHash = passwordHash;
     }
 
     /**
@@ -139,14 +137,14 @@ public class Utente {
     /**
      * Set the encrypted password of the user
      *
-     * @param passwordHash
+     * @param password
      */
-    public void setPasswordHash(String passwordHash) {
+    public void setPasswordHash(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.reset();
             digest.update(password.getBytes(StandardCharsets.UTF_8));
-            this.passwordHash = String.format("040x", new BigInteger(1, digest.digest()));
+            this.passwordHash = String.format("%040x", new BigInteger(1, digest.digest()));
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -167,5 +165,11 @@ public class Utente {
      */
     public void setEmail(String email) {
         this.email = email;
+
+
+    }
+
+    public boolean isManager(){
+        return false;
     }
 }
