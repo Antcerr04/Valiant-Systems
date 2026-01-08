@@ -2,22 +2,23 @@ package model.gestioneordine;
 
 import model.Connector.ConPool;
 import model.Gestione_Utente.Indirizzo;
-import model.Gestione_Utente.Utente;
+import model.Gestione_Utente.Cliente;
+import model.gestionecarrello.Carrello;
+import model.gestionecarrello.CarrelloItem;
+import model.gestioneinventario.Prodotto;
+import model.gestioneinventario.ProdottoDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrdineDAO {
-    public List<Ordine> doRetrieveAll(Utente utente) {
+    public List<Ordine> doRetrieveAll(Cliente cliente) {
         List<Ordine> ordineList = new ArrayList<Ordine>();
 
         try(Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM ordine WHERE utente = ? ORDER BY data_ordine DESC");
-            ps.setInt(1, utente.getId());
+            ps.setInt(1, cliente.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 double totale = 0;
@@ -61,5 +62,94 @@ public class OrdineDAO {
             throw new RuntimeException(e);
         }
         return ordineList;
+    }
+
+    public synchronized List<String> doCheckout(Carrello carrello, Cliente cliente) {
+        String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,track_id) VALUES (?,?,?,?,?,?,?,?)";
+        int orderID = -1;
+        double total = 0;
+        List<String> errorList = new ArrayList<>();
+        try(Connection connection = ConPool.getConnection()){
+            try{
+                connection.setAutoCommit(false);
+                ProdottoDAO service = new ProdottoDAO();
+                List<CarrelloItem> carrelloList = carrello.getCarrelloItemList();
+                for(CarrelloItem carrelloItem : carrelloList){
+                    total += carrelloItem.getProdotto().getPrezzoSaldo() * carrelloItem.getQuantita();
+                    Prodotto currentProdDATA = service.doRetrieveById(carrelloItem.getProdotto().getId());
+                    if(currentProdDATA.getQuantita() < carrelloItem.getQuantita())
+                        errorList.add ("La quantità richiesta di '"+currentProdDATA.getNome()+"' ("+carrelloItem.getQuantita()+") è inferiore a quella disponibile ("+currentProdDATA.getQuantita()+").");
+                    else {
+                        String query1 = "UPDATE prodotto SET quantita=? WHERE id=?";
+                        PreparedStatement ps1 = connection.prepareStatement(query1);
+                        ps1.setInt(1,(currentProdDATA.getQuantita() - carrelloItem.getQuantita()));
+                        ps1.setInt(2, carrelloItem.getProdotto().getId());
+                        if(ps1.executeUpdate() < 0)
+                            errorList.add("Errore aggiornamento della nuova quantità del prodotto: " + carrelloItem.getProdotto().getNome());
+                    }
+                }
+                if(!errorList.isEmpty()){
+                    connection.rollback();
+                    return errorList;
+                }
+
+                PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, cliente.getId());
+                Indirizzo indirizzo = cliente.getIndirizzo();
+                ps.setString(2, indirizzo.getVia());
+                ps.setInt(3, indirizzo.getNumCiv());
+                ps.setInt(4, indirizzo.getCap());
+                ps.setString(5, indirizzo.getCittà());
+                ps.setString(6, indirizzo.getProvincia());
+                ps.setString(7, indirizzo.getRegione());
+
+                String track = "F123D" + String.format("%6d", (int) (Math.random()*999999)).replace(' ','0');
+                ps.setString(8, track);
+
+                if(ps.executeUpdate() < 0) {
+                    connection.rollback();
+                    errorList.add("Errore inserimento ordine!");
+                    return errorList;
+                }
+                ResultSet rs = ps.getGeneratedKeys();
+                if(rs.next()) {
+                    orderID = rs.getInt(1);
+                }
+                for (CarrelloItem carrelloItem : carrelloList) {
+                    String query2 = "INSERT INTO dettaglio_ordine (ordine,prodotto,quantita,prezzo_u,nome_prod,immagine) VALUES (?,?,?,?,?,?)";
+                    PreparedStatement ps2 = connection.prepareStatement(query2);
+                    ps2.setInt(1, orderID);
+                    ps2.setInt(2, carrelloItem.getProdotto().getId());
+                    ps2.setInt(3, carrelloItem.getQuantita());
+                    double prezzo = carrelloItem.getProdotto().getPrezzoSaldo();
+                    ps2.setDouble(4, prezzo);
+                    ps2.setString(5, carrelloItem.getProdotto().getNome());
+                    ps2.setString(6, carrelloItem.getProdotto().getImmagine());
+
+                    if(ps2.executeUpdate() < 0) {
+                        connection.rollback();
+                        errorList.add("Errore inserimento dettaglio ordine.");
+                        return errorList;
+                    }
+                }
+                String query3 = "UPDATE utente SET saldo=? WHERE id_utente=?";
+                PreparedStatement ps3=connection.prepareStatement(query3);
+                ps3.setDouble(1, (Math.round((cliente.getSaldo() - total) * 100) / 100.0));
+                ps3.setInt(2, cliente.getId());
+                if(ps3.executeUpdate() < 0) {
+                    connection.rollback();
+                    errorList.add("Errore aggiornamento saldo utente.");
+                    return errorList;
+                }
+                cliente.setSaldo((Math.round((cliente.getSaldo() - total) * 100) / 100.0));
+                connection.commit();
+            }catch (SQLException e) {
+                connection.rollback();
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return errorList;
     }
 }
