@@ -146,4 +146,54 @@ public class Indirizzo {
     public void setCittà(String città) {
         this.città = città;
     }
+
+    /**
+     * @param città to validate
+     * @return true if città respects parameters, else return false
+     */
+    public static boolean validateCittà(String città) {
+        String regex = "^[A-Za-zàèéìòùÀÈÉÌÒÙ \\-']{2,20}$";
+        return città != null && città.matches(regex);
+    }
+
+    /**
+     * @param via to validate
+     * @return true if via respects parameters, else return false
+     */
+    public static boolean validateVia(String via) {
+        String regex = "^[A-Za-zàèéìòùÀÈÉÌÒÙ \\-'.]{2,50}$";
+        return via != null && via.matches(regex);
+    }
+
+    /**
+     * @param numCiv to validate
+     * @return true if numCiv respects parameters, else return false
+     */
+    public static boolean validateNumCiv(int numCiv) {
+        return numCiv > 0 && numCiv <= 9999;
+    }
+
+    /**
+     * @param cap to validate
+     * @return return true if cap respects parameters, else return false
+     */
+    public static boolean validateCap(int cap) {
+        return cap > 10000 && cap <= 99999;
+    }
+
+    /**
+     * @param regione to validate
+     * @return true if regione respects parameters, else return false
+     */
+    public static boolean validateRegione(String regione) {
+        return regione != null && !regione.trim().isEmpty();
+    }
+
+    /**
+     * @param provincia to validate
+     * @return true if provincia respects parameters, else return false
+     */
+    public static boolean validateProvincia(String provincia) {
+        return provincia != null && !provincia.trim().isEmpty();
+    }
 }

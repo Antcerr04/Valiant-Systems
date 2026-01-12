@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import storage.gestioneutente.Utente;
 import storage.gestioneutente.UtenteDAO;
 
 import java.io.IOException;
@@ -30,17 +31,18 @@ public class Modifica extends HttpServlet {
 
             //Controllo vaidità del codice
             if (codiceCorretto == null || !codiceCorretto.equals(codiceInserito)) {
-                req.setAttribute("errorMSG","Codide di verifica errato");
+                req.setAttribute("errorMSG", "Codide di verifica errato");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
                 return;
             }
 
             //Controllo password
-            if (!isPasswordValid(nuovaPassword)) {
-                req.setAttribute("errorMSG","Password non corretta");
+            if (!Utente.validatePassword(nuovaPassword)) {
+                req.setAttribute("errorMSG", "Password non corretta");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
+                return;
             }
             //Se è tutto ok aggiorno i dati
             UtenteDAO dao = new UtenteDAO();
@@ -55,29 +57,11 @@ public class Modifica extends HttpServlet {
                 resp.sendRedirect("index.jsp");
 
             } else {
-                req.setAttribute("errorMSG","Errore nel DB");
+                req.setAttribute("errorMSG", "Errore nel DB");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
             }
         }
     }
 
-    /**
-     * Function to validate password
-     * @param nuovaPassword The password to validate
-     * @return true if password is valid, else return false
-     */
-    private boolean isPasswordValid(String nuovaPassword) {
-        if (nuovaPassword == null || nuovaPassword.length() < 8) {
-            return false;
-        }
-
-        boolean hashUpper = nuovaPassword.matches(".*[A-Z].*");
-
-        boolean hasDigit = nuovaPassword.matches(".*[0-9].*");
-
-        boolean hasSpecial = nuovaPassword.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
-
-        return hashUpper && hasDigit && hasSpecial;
-    }
 }
