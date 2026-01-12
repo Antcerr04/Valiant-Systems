@@ -169,7 +169,58 @@ public class Utente {
 
     }
 
-    public boolean isManager(){
+    /**
+     * @return false because the default is that the Utente is a Cliente and not a Manager
+     */
+    public boolean isManager() {
         return false;
+    }
+
+    /**
+     * @param nome to validate
+     * @return true if nome respects parameters, else return false
+     */
+
+    public static boolean validateNome(String nome) {
+        String regex = "^[A-Za-zàèéìòùÀÈÉÌÒÙ \\-']{2,30}$";
+        return nome != null && nome.matches(regex);
+    }
+
+    /**
+     * @param cognome to validate
+     * @return true if cognome respects parameters, else return false
+     */
+    public static boolean validateCognome(String cognome) {
+        String regex = "^[A-Za-zàèéìòùÀÈÉÌÒÙ \\-']{2,30}$";
+        return cognome != null && cognome.matches(regex);
+    }
+
+    /**
+     * @param username to validate
+     * @return true if username respects parameters, else return false
+     */
+    public static boolean validateUsername(String username) {
+        String regex = "^[a-zA-Z0-9._]{3,20}$";
+        return username != null && username.matches(regex);
+    }
+
+    /**
+     * @param email to validate
+     * @return true if email respects parameters,else return false
+     */
+    public static boolean validateEmail(String email) {
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,75}$";
+        return email != null && email.matches(regex);
+    }
+
+    /**
+     * @param password to validate
+     * @return true if password respects parameters,else return false
+     */
+    public static boolean validatePassword(String password) {
+        return password != null && password.length() >= 8 &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*[0-9].*") &&
+                password.matches(".*[!@#\\$%\\^&\\*\\)\\(+=._-].*");
     }
 }

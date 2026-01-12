@@ -3,6 +3,7 @@ package application.gestioneutente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import storage.FacadeDAO;
 import storage.gestioneutente.*;
 
 import java.io.IOException;
@@ -12,15 +13,20 @@ import java.io.IOException;
  */
 @WebServlet(name = "Login", value = "/Login")
 public class Login extends HttpServlet {
+    private FacadeDAO dao = new FacadeDAO();
+
+    public void setFaceDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
             // Validazione lato server
-            if (username == null || username.trim().isEmpty() || username.length() > 75 ||
-                    password == null || password.trim().isEmpty() || password.length() > 50) {
+            if (!Utente.validateUsername(username) ||
+                    !Utente.validatePassword(password)){
                 request.setAttribute("errorMSG", "Username o password non validi.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(request, response);
@@ -28,9 +34,9 @@ public class Login extends HttpServlet {
             }
 
             // Accesso ai dati
-            UtenteDAO service = new UtenteDAO();
-            Utente utente = service.doRetrieveByUsernamePassword(username, password);
 
+            Utente utente = dao.getUserByCredentials(username,password);
+            //Se l'utente non è null lo inserisco nella sessione
             if (utente != null) {
 
                 HttpSession session = request.getSession();
@@ -42,7 +48,7 @@ public class Login extends HttpServlet {
                 cookie.setSecure(true);
                 response.addCookie(cookie);
                 response.sendRedirect("index.jsp");
-            } else {
+            } else { //  se utente == null
                 request.setAttribute("errorMSG", "Username o password incorretti.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(request, response);
@@ -55,7 +61,9 @@ public class Login extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
+
 }

@@ -61,4 +61,5 @@ public class Cliente extends Utente {
     public void setIndirizzo(Indirizzo indirizzo) {
         this.indirizzo = indirizzo;
     }
+
 }

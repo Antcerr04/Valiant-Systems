@@ -65,7 +65,7 @@ font-size: 18px;">
             <form action="Login" method="post" id="form-login">
                 <h1>Accedi</h1>
                 <label for="username">Username</label>
-                <input type="text" id="username" maxlength="75" required name="username" autofocus>
+                <input type="text" id="username" maxlength="20" required name="username" autofocus>
                 <label for="password">Password</label>
                 <input type="password" maxlength="50" required id="password" name="password">
 

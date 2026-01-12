@@ -42,10 +42,10 @@
             <h1>Crea account</h1>
             <label for="name">Nome</label>
             <input type="text" name="name" id="name" required
-                   pattern="^[A-Za-zà-ù]{2,20}$" title="Solo caratteri da 2 a 20" maxlength="20">
+                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="20">
             <label for="surname">Cognome</label>
             <input type="text" name="surname" id="surname" required
-                   pattern="^[A-Za-zà-ù]{2,20}$" title="Solo caratteri da 2 a 20" maxlength="20">
+                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="20">
             <label for="register-email">E-mail</label>
             <input type="email" name="email" id="register-email" required oninput="validateEmail(this)">
             <div class="feedback-email" style="display: none">
@@ -55,7 +55,7 @@
                 </button>
             </div>
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" required oninput="validateUsername(this)">
+            <input type="text" name="username" id="username" pattern="^[a-zA-Z0-9._]{4,20}$" maxlength="20" title="Lo username deve contenere da 3 e 20 caratteri(lettere,numeri,punto o underscore" required oninput="validateUsername(this)">
             <p class="feedback-username" style="color: red; display: none">Username già esistente</p>
             <label for="registerPassword">Password</label>
             <input type="password" id="registerPassword" name="password"
@@ -78,14 +78,14 @@
                 <option value="">--- Seleziona una provincia ---</option>
             </select>
             <label for="via">Indirizzo (Via/Corso/Piazza...)</label>
-            <input type="text" name="via" id="via" required pattern="^[A-Za-z \-]+$" title="Inserisci una via">
+            <input type="text" name="via" id="via" required pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-'.]{2,50}$" title="Inserisci una via">
             <label for="house-number">Numero civico</label>
-            <input type="text" name="house-number" id="house-number" required pattern="^\d{1,3}$"
-                   title="Numero civico massimo 3 cifre">
+            <input type="text" name="house-number" id="house-number" required pattern="^\d{1,4}$"
+                   title="Numero civico massimo 4 cifre" maxlength="4">
             <label for="cap">CAP</label>
-            <input type="text" name="cap" id="cap" required pattern="^\d{5}$" title="Inserisci CAP di 5 numeri">
+            <input type="text" name="cap" id="cap" required pattern="^\d{5}$" title="Inserisci CAP di 5 numeri > 10000 e <99999" maxlength="5">
             <label for="city">Città</label>
-            <input type="text" name="city" id="city" required pattern="^[A-Za-z \-]+$" title="Inserisci una città">
+            <input type="text" name="city" id="city" required pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,20}$" title="Inserisci una città con lunghezza compresa tra 2 e 20 caratteri">
 
             <input type="submit" value="Registrati">
         </form>

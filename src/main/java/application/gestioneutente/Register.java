@@ -3,6 +3,7 @@ package application.gestioneutente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import storage.FacadeDAO;
 import storage.gestioneutente.*;
 
 import java.io.IOException;
@@ -10,8 +11,14 @@ import java.io.IOException;
 @WebServlet(name = "Register", value = "/Register")
 public class Register extends HttpServlet {
 
+    private FacadeDAO dao= new FacadeDAO();
+    //This is used for test
+    public void setFaceDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recovery parameters
         String nome = request.getParameter("name");
         String cognome = request.getParameter("surname");
@@ -20,58 +27,76 @@ public class Register extends HttpServlet {
         String password = request.getParameter("password");
         String via = request.getParameter("via");
         String numeroCasaStr = request.getParameter("house-number");
+        int numeroCivico = 0;
+        int cap = 0;
+        if (numeroCasaStr != null && !numeroCasaStr.isEmpty()) {
+            try {
+                numeroCivico = Integer.parseInt(numeroCasaStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Dati non validi o mancanti.");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+                return;
+            }
+        }
         String capStr = request.getParameter("cap");
+        if (capStr != null && !capStr.isEmpty()) {
+            try {
+                cap = Integer.parseInt(capStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Dati non validi o mancanti.");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+                return;
+            }
+        }
         String città = request.getParameter("city");
         String provincia = request.getParameter("provincia");
         String regione = request.getParameter("regione");
 
         // Controls
-        if (nome == null || !nome.matches("^[A-Za-zà-ù]{2,20}$") ||
-                cognome == null || !cognome.matches("^[A-Za-zà-ù]{2,20}$") ||
-                email == null || email.length() <= 10 ||
-                username == null || username.length() < 3 ||
-                password == null || !validatePassword(password) ||
-                via == null || !via.matches("^[A-Za-z \\-]+$") ||
-                numeroCasaStr == null || !numeroCasaStr.matches("^\\d{1,3}$") ||
-                capStr == null || !capStr.matches("^\\d{5}$") ||
-                città == null || !città.matches("^[A-Za-z \\-]+$") ||
-                provincia == null || provincia.isEmpty() ||
-                regione == null || regione.isEmpty()) {
+        if (!Utente.validateNome(nome) ||
+                !Utente.validateCognome(cognome) ||
+                !Utente.validateEmail(email) ||
+                !Utente.validateUsername(username) ||
+                !Utente.validatePassword(password) ||
+                !Indirizzo.validateVia(via) ||
+                !Indirizzo.validateNumCiv(numeroCivico) ||
+                !Indirizzo.validateProvincia(provincia) ||
+                !Indirizzo.validateRegione(regione) ||
+                !Indirizzo.validateCittà(città) ||
+                !Indirizzo.validateCap(cap)) {
 
             request.setAttribute("error", "Dati non validi o mancanti.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
-        int numeroCasa = Integer.parseInt(numeroCasaStr);
-        int cap = Integer.parseInt(capStr);
 
         // Verifica unicità email e username
 
-        /**
-         * if (service.emailExists(email)) {
-         *             request.setAttribute("error", "Email già in uso.");
-         *             request.getRequestDispatcher("register.jsp").forward(request, response);
-         *             return;
-         *         }
-         *         if (service.usernameExists(username)) {
-         *             request.setAttribute("error", "Username già in uso.");
-         *             request.getRequestDispatcher("register.jsp").forward(request, response);
-         *             return;
-         *         }
-         */
-        UtenteDAO service = new UtenteDAO();
+
+         if (dao.isEmailPresent(email)) {
+                      request.setAttribute("error", "Email già in uso.");
+                      request.getRequestDispatcher("register.jsp").forward(request, response);
+                      return;
+                  }
+                  if (dao.isUserPresent(username)) {
+                      request.setAttribute("error", "Username già in uso.");
+                      request.getRequestDispatcher("register.jsp").forward(request, response);
+                      return;
+                  }
+
+
 
 
         // Create address
-        Indirizzo indirizzo= new Indirizzo(via,numeroCasa,cap,regione,provincia,città);
+        Indirizzo indirizzo = new Indirizzo(via, numeroCivico, cap, regione, provincia, città);
 
 
         // Save client
-        Cliente cliente = new Cliente(nome,cognome,username,email,password,indirizzo);
+        Cliente cliente = new Cliente(nome, cognome, username, email, password, indirizzo);
         cliente.setPasswordHash(password);
 
-        service.doSave(cliente);
+        dao.saveClient(cliente);
 
         // Success : go to login
         Cookie cookie = new Cookie("notification", "Registrazione-avvenuta-con-successo!");
@@ -81,11 +106,5 @@ public class Register extends HttpServlet {
         response.sendRedirect("login.jsp");
     }
 
-    //function to validate password
-    private boolean validatePassword(String password) {
-        return password.length() >= 8 &&
-                password.matches(".*[A-Z].*") &&
-                password.matches(".*[0-9].*") &&
-                password.matches(".*[!@#\\$%\\^&\\*\\)\\(+=._-].*");
-    }
+
 }
