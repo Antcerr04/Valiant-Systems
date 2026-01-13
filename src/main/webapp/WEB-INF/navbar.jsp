@@ -34,12 +34,11 @@
             <div class="dropdown-content-hvr user-drop-hvr">
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/manage" title="Vai all'inventario dei PC"><span class="material-icons" style="width: 30px">lists</span> Inventario</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/InsertProduct.jsp" title="Inserisci un nuovo PC"><span class="material-icons" style="width: 30px">add_to_queue</span> Aggiungi PC</a>
-              <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/update.jsp" title="Modifica dati utente"><span class="material-icons" style="width: 30px">edit_square</span> Modifica dati</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/logout" title="Disconnetti utente"><span class="material-icons" style="width: 30px">logout</span> Logout</a>
             </div>
           </li>
         </c:if>
-        <c:if test = "${utente.username != 'admin'}">
+        <c:if test = "${!utente.manager}">
           <li class="right dropdown-hvr">
             <a href="#" title="Menu utente"><span class="material-icons">person</span></a>
             <div class="dropdown-content-hvr user-drop-hvr">
