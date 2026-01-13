@@ -1,6 +1,7 @@
 package storage;
 
 import storage.gestioneutente.Cliente;
+import storage.gestioneutente.Indirizzo;
 import storage.gestioneutente.Utente;
 import storage.gestioneutente.UtenteDAO;
 import storage.gestionecarrello.Carrello;
@@ -180,4 +181,12 @@ public class FacadeDAO {
     public List<String> checkout(Cliente cliente, Carrello carrello) {
         return ordineDAO.doCheckout(carrello, cliente);
     }
+
+    /**
+     *
+     * @param utente the {@link Utente} to update
+     * @param indirizzo the {@link Indirizzo} to update
+     * @return true if successful update, else return false
+     */
+    public boolean updateAccount(Utente utente, Indirizzo indirizzo) { return utenteDAO.updateUtente(utente,indirizzo);}
 }
