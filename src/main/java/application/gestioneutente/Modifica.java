@@ -22,7 +22,7 @@ public class Modifica extends HttpServlet {
         this.service=service;
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sourcce = req.getParameter("source");
         HttpSession session = req.getSession();
 
@@ -69,59 +69,69 @@ public class Modifica extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         } else if (sourcce.equals("update")) {
-            Utente utenteAttuale= (Utente) session.getAttribute("utente");
-            Indirizzo indirizzoAttuale= (Indirizzo) session.getAttribute("indirizzo");
-            String nome=req.getParameter("name");
-            String cognome=req.getParameter("surname");
-            String regione=req.getParameter("regione");
-            String provincia=req.getParameter("provincia");
-            String via=req.getParameter("via");
-            String numCivico=req.getParameter("house-number");
-            String cap=req.getParameter("cap");
-            String city=req.getParameter("city");
+            try {
+                Utente utenteAttuale= (Utente) session.getAttribute("utente");
+                Indirizzo indirizzoAttuale= (Indirizzo) session.getAttribute("indirizzo");
+                String nome=req.getParameter("name");
+                String cognome=req.getParameter("surname");
+                String regione=req.getParameter("regione");
+                String provincia=req.getParameter("provincia");
+                String via=req.getParameter("via");
+                String numCivico=req.getParameter("house-number");
+                String cap=req.getParameter("cap");
+                String city=req.getParameter("city");
 
-            //Validazione
-            if(!Utente.validateNome(nome) || !Utente.validateCognome(cognome)){
-                req.setAttribute("errorMSG", "Nome o cognome non corretti");
+                //Validazione
+                if(!Utente.validateNome(nome) || !Utente.validateCognome(cognome)){
+                    req.setAttribute("errorMSG", "Nome o cognome non corretti");
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                    dispatcher.forward(req, resp);
+                    return;
+
+                }
+                utenteAttuale.setNome(nome);
+                utenteAttuale.setCognome(cognome);
+
+                if(!Indirizzo.validateRegione(regione) ||
+                        !Indirizzo.validateProvincia(provincia) ||
+                        !Indirizzo.validateVia(via) ||
+                        !Indirizzo.validateNumCiv(Integer.parseInt(numCivico)) ||
+                        !Indirizzo.validateCap(Integer.parseInt(cap)) ||
+                        !Indirizzo.validateCittà(city)){
+                    req.setAttribute("errorMSG", "Dati indirizzo non validi");
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                    dispatcher.forward(req, resp);
+                    return;
+                }
+
+                indirizzoAttuale.setRegione(regione);
+                indirizzoAttuale.setProvincia(provincia);
+                indirizzoAttuale.setVia(via);
+                indirizzoAttuale.setNumCiv(Integer.parseInt(numCivico));
+                indirizzoAttuale.setCap(Integer.parseInt(cap));
+                indirizzoAttuale.setCittà(city);
+
+
+                boolean ok=service.updateAccount(utenteAttuale,indirizzoAttuale);
+
+                if (ok) {
+                    Cookie cookie = new Cookie("notification", "Riprstino-eseguito-successo.");
+                    cookie.setMaxAge(1);
+                    cookie.setSecure(true);
+                    resp.addCookie(cookie);
+                    resp.sendRedirect("index.jsp");
+                }
+                else {
+                    req.setAttribute("errorMSG", "Operazione non riuscita");
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                    dispatcher.forward(req, resp);
+                    return;
+                }
+            }catch (NumberFormatException Exception ) {
+                req.setAttribute("errorMSG", "Errore non puoi inserire una lettera nel numero civico");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
-
-            }
-            utenteAttuale.setNome(nome);
-            utenteAttuale.setCognome(cognome);
-
-            if(!Indirizzo.validateRegione(regione) ||
-            !Indirizzo.validateProvincia(provincia) ||
-            !Indirizzo.validateVia(via) ||
-            !Indirizzo.validateNumCiv(Integer.parseInt(numCivico)) ||
-            !Indirizzo.validateCap(Integer.parseInt(cap)) ||
-            !Indirizzo.validateCittà(city)){
-                req.setAttribute("errorMSG", "Dati indirizzo non validi");
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
-                dispatcher.forward(req, resp);
-            }
-
-            indirizzoAttuale.setRegione(regione);
-            indirizzoAttuale.setProvincia(provincia);
-            indirizzoAttuale.setVia(via);
-            indirizzoAttuale.setNumCiv(Integer.parseInt(numCivico));
-            indirizzoAttuale.setCap(Integer.parseInt(cap));
-            indirizzoAttuale.setCittà(city);
-
-
-            boolean ok=service.updateAccount(utenteAttuale,indirizzoAttuale);
-
-            if (ok) {
-                Cookie cookie = new Cookie("notification", "Riprstino-eseguito-successo.");
-                cookie.setMaxAge(1);
-                cookie.setSecure(true);
-                resp.addCookie(cookie);
-                resp.sendRedirect("index.jsp");
-            }
-            else {
-                req.setAttribute("errorMSG", "Operazione non riuscita");
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
-                dispatcher.forward(req, resp);
+                return;
             }
 
         }

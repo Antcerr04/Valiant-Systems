@@ -42,10 +42,10 @@
             <h1>Crea account</h1>
             <label for="name">Nome</label>
             <input type="text" name="name" id="name" required
-                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="20">
+                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="30">
             <label for="surname">Cognome</label>
             <input type="text" name="surname" id="surname" required
-                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="20">
+                   pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="30">
             <label for="register-email">E-mail</label>
             <input type="email" name="email" id="register-email" required oninput="validateEmail(this)">
             <div class="feedback-email" style="display: none">
