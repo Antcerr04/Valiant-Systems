@@ -167,8 +167,8 @@ public class FacadeDAO {
      * @param cliente the {@Cliente} whose order have to be retrieved.
      * @return a list of {@link Ordine} if there are any, an empty list otherwise.
      */
-    public List<Ordine> getAllClientOrders(Cliente cliente){
-        return ordineDAO.doRetrieveAll(cliente);
+    public List<Ordine> getClientOrders(Cliente cliente){
+        return ordineDAO.doRetrieveClientOrders(cliente);
     }
 
     /**
