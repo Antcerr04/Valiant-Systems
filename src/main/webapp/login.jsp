@@ -65,9 +65,9 @@ font-size: 18px;">
             <form action="Login" method="post" id="form-login">
                 <h1>Accedi</h1>
                 <label for="username">Username</label>
-                <input type="text" id="username" maxlength="20" required name="username" autofocus>
+                <input type="text" id="username" maxlength="20" required name="username" autofocus pattern="^[a-zA-Z0-9._]{4,20}$" title="Lo username deve contenere da 3 e 20 caratteri(lettere,numeri,punto o underscore">
                 <label for="password">Password</label>
-                <input type="password" maxlength="50" required id="password" name="password">
+                <input type="password" maxlength="50" required id="password" name="password" title="Almeno 8 caratteri, una maiuscola, un numero e un carattere speciale">
 
                 <a href="#" id="reset-password" style="margin-bottom: 10px; text-align: right;">Password
                     dimenticata?</a>
@@ -91,7 +91,7 @@ font-size: 18px;">
 
                 <div id="step-verification" style="display: none">
                     <label for="codice-verifica">Codice di verifica (inviato via email)</label>
-                    <input type="text" id="codice-verifica" name="codice" maxlength="6" style="width: 100%" required>
+                    <input type="text" id="codice-verifica" name="codice" maxlength="6" pattern="^\d{6}$" style="width: 100%" required>
 
                     <label for="resetPassword">Nuova password</label>
                     <input type="password" id="resetPassword" name="newPassword" style="width: 100%" required>

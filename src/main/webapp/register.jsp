@@ -47,7 +47,7 @@
             <input type="text" name="surname" id="surname" required
                    pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$" title="Solo caratteri da 2 a 30" maxlength="30">
             <label for="register-email">E-mail</label>
-            <input type="email" name="email" id="register-email" required oninput="validateEmail(this)">
+            <input type="email" name="email" maxlength="75" id="register-email" required oninput="validateEmail(this)">
             <div class="feedback-email" style="display: none">
                 <p style="color: red">Email già registrata</p>
                 <button type="button" style="margin-top: 2%;background-color: #359DE0; color: white; cursor: pointer;"
@@ -59,7 +59,7 @@
             <p class="feedback-username" style="color: red; display: none">Username già esistente</p>
             <label for="registerPassword">Password</label>
             <input type="password" id="registerPassword" name="password"
-                   required title="Almeno 8 caratteri, una maiuscola, un numero e un carattere speciale">
+                   required title="Almeno 8 caratteri, una maiuscola, un numero e un carattere speciale" maxlength="50">
 
             <div id="feedback" style="display: none">
                 <p id="lenght" class="invalid">Almeno 8 caratteri</p>
