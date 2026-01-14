@@ -42,12 +42,12 @@
 
             <label for="new-name-utente">Nome</label>
             <input type="text" name="name" placeholder="Name" id="new-name-utente" required
-                   autocomplete="on" value="${utente.nome}" pattern="^[A-Za-zà-ù]{2,20}$"
-                   title="Solo caratteri di lunghezza da 2 a 20" maxlength="20">
+                   autocomplete="on" value="${utente.nome}" pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$"
+                   title="Solo caratteri di lunghezza da 2 a 30" maxlength="30">
             <label for="new-surname-utente">Cognome</label>
             <input type="text" name="surname" id="new-surname-utente" placeholder="Surname" required
-                   autocomplete="on" value="${utente.cognome}" pattern="^[A-Za-zà-ù]{2,20}$"
-                   title="Solo caratteri di lunghezza da 2 a 20">
+                   autocomplete="on" value="${utente.cognome}" pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,30}$"
+                   title="Solo caratteri di lunghezza da 2 a 30">
 
             <label for="new-email-utente">Email</label>
             <input type="email" id="new-email-utente" name="email" placeholder="Email"
@@ -62,19 +62,19 @@
             </select>
             <label for="new-street-username">Indirizzo (Via/Corso/Piazza...)</label>
             <input type="text" id="new-street-username" name="via" placeholder="Street" required
-                   autocomplete="on" value="${indirizzo.via}" pattern="^[A-Za-z \-]+$"
+                   autocomplete="on" value="${indirizzo.via}" pattern="[A-Za-zàèéìòùÀÈÉÌÒÙ \-'.]{2,50}$"
                    title="Inserisci una via">
             <label for="new-housenumber">Numero civico</label>
             <input type="text" name="house-number" id="new-housenumber" placeholder="House Number" required
                    autocomplete="on"
-                   pattern="^\d{1,3}$" title="Inserisci numero civico massimo di 3 cifre"
+                   pattern="^\d{1,4}$" title="Inserisci numero civico massimo di 4 cifre" maxlength="4"
                    value="${indirizzo.numCiv}">
             <label for="new-cap-utente">CAP</label>
             <input type="text" name="cap" id="new-cap-utente" placeholder="Cap" required autocomplete="on"
-                   pattern="^\d{5}$" title="Inserisci CAP di 5 numeri" value="${indirizzo.cap}">
+                   pattern="^\d{5}$" title="Inserisci CAP di 5 numeri > 10000 e <99999" maxlength="5" value="${indirizzo.cap}">
             <label for="new-city">Città</label>
             <input type="text" id="new-city" name="city" placeholder="City" required autocomplete="on"
-                   value="${indirizzo.città}" pattern="^[A-Za-z \-]+$" title="Inserisci città">
+                   value="${indirizzo.città}" pattern="^[A-Za-zàèéìòùÀÈÉÌÒÙ \-']{2,20}$" title="Inserisci una città con lunghezza compresa tra 2 e 20 caratteri">
 
             <input type="submit" value="Modifica" class="update-submit">
 

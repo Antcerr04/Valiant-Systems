@@ -1,4 +1,4 @@
-package application.gestioneprodotto;
+package application.gestioneinventario;
 
 import com.google.gson.Gson;
 import jakarta.servlet.RequestDispatcher;

@@ -49,7 +49,7 @@ class testRegisterCliente {
         when(request.getParameter("provincia")).thenReturn("Salerno");
         when(request.getParameter("regione")).thenReturn("Campania");
 
-        //Mock del dispatcher (used in the error cases)
+        //Mock of the dispatcher (used in the error cases)
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     }
 
