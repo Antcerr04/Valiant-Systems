@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrdineDAO {
-    public List<Ordine> doRetrieveAll(Cliente cliente) {
+    public List<Ordine> doRetrieveClientOrders(Cliente cliente) {
         List<Ordine> ordineList = new ArrayList<Ordine>();
 
         try(Connection con = ConPool.getConnection()) {
