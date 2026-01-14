@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import storage.FacadeDAO;
 import storage.gestioneinventario.Prodotto;
-import storage.gestioneinventario.ProdottoDAO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +17,13 @@ import java.util.List;
 //This Servlet is used to search a product
 @WebServlet(name = "Search", value = "/search")
 public class Search extends HttpServlet {
+    private FacadeDAO service = new FacadeDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             if (req.getParameter("q") != null && !req.getParameter("q").isEmpty()) {
                 String query = req.getParameter("q");
-                ProdottoDAO service = new ProdottoDAO();
-                List<Prodotto> prodottoList = service.doSearchByName(query);
+                List<Prodotto> prodottoList = service.searchProduct(query);
                 PrintWriter out = resp.getWriter();
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");

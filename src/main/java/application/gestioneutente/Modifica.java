@@ -27,32 +27,48 @@ public class Modifica extends HttpServlet {
         HttpSession session = req.getSession();
 
         if ("reset".equals(sourcce)) {
-            //1. Recupero dati dal form
+            //1. Get data from form
 
             String emailInserita = req.getParameter("email");
             String codiceInserito = req.getParameter("codice");
             String nuovaPassword = req.getParameter("newPassword");
 
-            //2. Recupero dati salvati in sessione dalla EmailServlet
+            //Validation email
+            if(!Utente.validateEmail(emailInserita)) {
+                req.setAttribute("errorMSG", "Email invalida");
+                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                rd.forward(req, resp);
+
+                return;
+            }
+            boolean existEmail=service.isEmailPresent(emailInserita);
+            if(!existEmail) {
+                req.setAttribute("errorMSG", "Email non associata a nessun account");
+                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                rd.forward(req, resp);
+                return;
+            }
+
+            //2.Get data in the session
 
             String codiceCorretto = (String) session.getAttribute("codiceVerifica");
 
-            //Controllo vaidità del codice
+            //Validation code
             if (codiceCorretto == null || !codiceCorretto.equals(codiceInserito)) {
-                req.setAttribute("errorMSG", "Codide di verifica errato");
+                req.setAttribute("errorMSG", "Codice di verifica errato");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
                 return;
             }
 
-            //Controllo password
+            //Validation password
             if (!Utente.validatePassword(nuovaPassword)) {
                 req.setAttribute("errorMSG", "Password non corretta");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
                 return;
             }
-            //Se è tutto ok aggiorno i dati
+            //If is all ok
             boolean success = service.updateUserPassword(emailInserita,nuovaPassword);
 
             if (success) {
@@ -62,6 +78,7 @@ public class Modifica extends HttpServlet {
                 cookie.setSecure(true);
                 resp.addCookie(cookie);
                 resp.sendRedirect("index.jsp");
+                return;
 
             } else {
                 req.setAttribute("errorMSG", "Errore nel DB");
@@ -81,7 +98,7 @@ public class Modifica extends HttpServlet {
                 String cap=req.getParameter("cap");
                 String city=req.getParameter("city");
 
-                //Validazione
+                //Validation name and suername
                 if(!Utente.validateNome(nome) || !Utente.validateCognome(cognome)){
                     req.setAttribute("errorMSG", "Nome o cognome non corretti");
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
@@ -92,6 +109,7 @@ public class Modifica extends HttpServlet {
                 utenteAttuale.setNome(nome);
                 utenteAttuale.setCognome(cognome);
 
+                //Validation address
                 if(!Indirizzo.validateRegione(regione) ||
                         !Indirizzo.validateProvincia(provincia) ||
                         !Indirizzo.validateVia(via) ||

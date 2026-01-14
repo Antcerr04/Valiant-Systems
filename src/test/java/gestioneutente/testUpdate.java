@@ -37,6 +37,7 @@ public class testUpdate {
         Indirizzo indirizzomock = new Indirizzo("Via Vittorio Emanuele", 10, 84023, "Campania", "Salerno", "Salerno");
         Cliente utentemock = new Cliente("Mario", "Rossi", "Mar04", "Mariorossi@gmail.com", "Mario2004@", indirizzomock);
 
+        when(request.getSession()).thenReturn(session);
         when(request.getParameter("source")).thenReturn("update");
         when(session.getAttribute("utente")).thenReturn(utentemock);
         when(session.getAttribute("indirizzo")).thenReturn(indirizzomock);
@@ -54,17 +55,6 @@ public class testUpdate {
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     }
 
-    /**
-     * Method used to verify a failure
-     *
-     * @throws Exception
-     */
-    private void verifyFailure() throws Exception {
-        //Verify the failure
-        verify(dispatcher).forward(request, response);
-        //Verify that error attribute is setting
-        verify(request).setAttribute(eq("errorMSG"), anyString());
-    }
 
     /**
      * Method used to test a failure when name isn't correct

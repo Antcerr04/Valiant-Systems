@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import storage.gestioneutente.UtenteDAO;
+import storage.FacadeDAO;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "Validate", value = "/Validate")
 public class Validate extends HttpServlet {
+    private FacadeDAO service = new FacadeDAO();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
@@ -22,26 +23,26 @@ public class Validate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        UtenteDAO service = new UtenteDAO();
+
         if (action.equals("checkUsername")) { //chiamata per il check dell'userename
-            boolean usernameExist = service.existUsername(req.getParameter("username"));
+            boolean usernameExist = service.isUserPresent(req.getParameter("username"));
             resp.setContentType("text/plain");
             resp.setCharacterEncoding("UTF-8");
             if (usernameExist) {
-                resp.getWriter().write("0"); //Username giò esistente
+                resp.getWriter().write("0"); //Username already exists
             } else {
-                resp.getWriter().write("1"); // Username disponibile
+                resp.getWriter().write("1"); // Username not exists
             }
 
         } else if (action.equals("checkEmail")) {
             String email = req.getParameter("email");
-            boolean emailExist = service.existEmail(email);
+            boolean emailExist = service.isEmailPresent(email);
             resp.setContentType("text/plain");
             resp.setCharacterEncoding("UTF-8");
             if (emailExist) {
-                //Email esistente
+                //Email already exists
                 resp.getWriter().write("0");
-                //Email libera
+                //Email not exists
             } else resp.getWriter().write("1");
         }
 
