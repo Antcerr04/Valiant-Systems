@@ -67,17 +67,19 @@
         <span style="text-align: left">RAM:</span><span style="text-align: right">${prodotto.RAM_size} GB @${prodotto.RAM_speed} MHz</span>
       </div>
       <br>
-      <c:choose>
-        <c:when test="${prodotto.quantita > 0}">
-          <form method="get" action="addToCart">
-            <input type="hidden" name="id" value="${prodotto.id}">
-            <input type="submit" class="hbutton btn-list" style="width: 90%" value="Aggiungi al carrello">
-          </form>
-        </c:when>
-        <c:when test="${prodotto.quantita == 0}">
-          <button class="hbutton btn-list btn-disabled" style="width: 300px">Non disponibile</button>
-        </c:when>
-      </c:choose>
+      <c:if test = "${!utente.manager}">
+        <c:choose>
+          <c:when test="${prodotto.quantita > 0}">
+            <form method="get" action="addToCart">
+              <input type="hidden" name="id" value="${prodotto.id}">
+              <input type="submit" class="hbutton btn-list" style="width: 90%" value="Aggiungi al carrello">
+            </form>
+          </c:when>
+          <c:when test="${prodotto.quantita == 0}">
+            <button class="hbutton btn-list btn-disabled" style="width: 300px">Non disponibile</button>
+          </c:when>
+        </c:choose>
+      </c:if>
       <c:if test="${utente.manager}">
         <form method="post" action="UpdateProduct">
           <input type="hidden" name="id" value="${prodotto.id}">

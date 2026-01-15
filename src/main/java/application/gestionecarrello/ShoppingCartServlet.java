@@ -2,6 +2,7 @@ package application.gestionecarrello;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,9 +10,14 @@ import jakarta.servlet.http.HttpSession;
 import storage.FacadeDAO;
 import storage.gestionecarrello.Carrello;
 import storage.gestioneinventario.Prodotto;
+import storage.gestioneordine.Ordine;
+import storage.gestioneutente.Cliente;
+import storage.gestioneutente.Utente;
 
 import java.io.IOException;
+import java.util.List;
 
+@WebServlet(name = "ShoppingCartServlet", urlPatterns = {"/cart","/addToCart", "/removeFromCart"})
 public class ShoppingCartServlet extends HttpServlet {
     private FacadeDAO dao = new FacadeDAO();
 
@@ -36,7 +42,8 @@ public class ShoppingCartServlet extends HttpServlet {
                             carrello.addCarrelloItem(prodotto);
                             session.setAttribute("carrelloList", carrello);
                         }
-                        response.sendRedirect("cart.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cart.jsp");
+                        dispatcher.forward(request, response);
                     }else{
                         request.setAttribute("errorMSG", "Il prodotto con id '"+id+"' non è presente nel database!");
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
@@ -57,7 +64,8 @@ public class ShoppingCartServlet extends HttpServlet {
                         Carrello carrello = (Carrello) session.getAttribute("carrelloList");
                         if (carrello != null && !carrello.getCarrelloItemList().isEmpty()) {
                             if (carrello.removeCarrelloItem(prodotto)) {
-                                response.sendRedirect("cart.jsp");
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cart.jsp");
+                                dispatcher.forward(request, response);
                             } else {
                                 request.setAttribute("errorMSG", "Il prodotto con id '" + id + "' non è presente nel carrello!");
                                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
@@ -75,6 +83,17 @@ public class ShoppingCartServlet extends HttpServlet {
                     }
                 }else {
                     request.setAttribute("errorMSG", "Il campo prodotto id non può essere vuoto!");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                    dispatcher.forward(request, response);
+                }
+            }else if (request.getServletPath().equals("/cart")) {
+                HttpSession session = request.getSession();
+                Utente utente = (Utente) session.getAttribute("utente");
+                if ( utente == null || utente instanceof Cliente ) {
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cart.jsp");
+                        dispatcher.forward(request, response);
+                }else{
+                    request.setAttribute("errorMSG", "Operazione negata! Non si hanno i permessi corretti per la risorsa richiesta.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                     dispatcher.forward(request, response);
                 }

@@ -22,7 +22,9 @@
         </p>
       </div>
     </li>
-    <li class="right"><a href="<%=request.getContextPath()%>/cart.jsp" title="Vai al carrello"><span class="material-icons">shopping_cart</span><c:if test="${!empty carrelloList.carrelloItemList}"><span class="material-icons cart-dot">circle</span></c:if></a></li>
+    <c:if test = "${!utente.manager}">
+      <li class="right"><a href="<%=request.getContextPath()%>/cart" title="Vai al carrello"><span class="material-icons">shopping_cart</span><c:if test="${!empty carrelloList.carrelloItemList}"><span class="material-icons cart-dot">circle</span></c:if></a></li>
+    </c:if>
     <c:choose>
       <c:when test="${utente == null}">
         <li class="right"><a href="<%=request.getContextPath()%>/login.jsp" title="Accedi/Registrati"><span class="material-icons">login</span></a></li>

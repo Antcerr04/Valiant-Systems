@@ -5,25 +5,22 @@
   Time: 22:13
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="WEB-INF/results/error.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="/WEB-INF/results/error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Carrello - Valiant Systems</title>
-    <%@include file="WEB-INF/results/header.jsp" %>
+    <%@include file="/WEB-INF/results/header.jsp" %>
 
     <link rel="stylesheet" href="./css/index-style.css" type="text/css">
 </head>
 <body>
 <fmt:setLocale value = "en_US"/>
-<%@ include file="WEB-INF/navbar.jsp" %>
+<%@ include file="/WEB-INF/navbar.jsp" %>
 
 <div class="flex-wrapper">
-    <c:if test = "${utente.manager}">
-        <c:redirect url = "/index.jsp" />
-    </c:if>
     <c:choose>
         <c:when test="${empty carrelloList.carrelloItemList}">
             <div class="container" style="padding: 50px">
@@ -86,7 +83,7 @@
         </c:when>
     </c:choose>
 
-    <%@ include file="WEB-INF/footer.jsp" %>
+    <%@ include file="/WEB-INF/footer.jsp" %>
 </div>
 
 </body>

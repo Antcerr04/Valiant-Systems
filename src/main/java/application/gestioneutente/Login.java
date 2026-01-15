@@ -47,6 +47,11 @@ public class Login extends HttpServlet {
                     session.setAttribute("indirizzo",c.getIndirizzo());
                 }
 
+                //Remove cart from session if a manager logs in with items in cart
+                if((utente instanceof Manager) && ((session.getAttribute("carrelloList") != null))){
+                    session.removeAttribute("carrelloList");
+                }
+
                 //Create cookie to show a message after login
                 Cookie cookie = new Cookie("notification", "Benvenuto-" + utente.getUsername() + "!");
                 cookie.setMaxAge(1);
