@@ -70,7 +70,7 @@ public class testRecuperoPassword {
     @Test
     void TC_1_5_2_EmailInserita() throws ServletException, IOException {
 
-        String email = "Mariorossigmail@gmail.com";
+        String email = "Mariorossi@gmail.com";
         when(request.getParameter("email")).thenReturn(email);
 
         when(daoMock.isEmailPresent(email)).thenReturn(false);

@@ -71,7 +71,7 @@ class testRegisterCliente {
     @Test
     void TC_1_1_1_NomeErrato() throws Exception {
         // Override only the parameter name
-        when(request.getParameter("name")).thenReturn("Antonio5@");
+        when(request.getParameter("name")).thenReturn("Mario@");
 
         servlet.doPost(request, response);
         verifyFailure();
@@ -84,7 +84,7 @@ class testRegisterCliente {
     @Test
     void TC_1_1_2_CognomeErrato() throws Exception {
         //Override only the parameter surname
-        when(request.getParameter("surname")).thenReturn("C3rrone");
+        when(request.getParameter("surname")).thenReturn("R0ssi");
         servlet.doPost(request, response);
         verifyFailure();
     }
@@ -96,7 +96,7 @@ class testRegisterCliente {
     @Test
     void TC_1_1_3_EmailErrato() throws Exception {
         //Override only the parameter surname
-        when(request.getParameter("email")).thenReturn("C3rrone");
+        when(request.getParameter("email")).thenReturn("Mariorossigmail,com");
         servlet.doPost(request, response);
         verifyFailure();
     }
@@ -124,7 +124,7 @@ class testRegisterCliente {
      */
     @Test
     void TC_1_1_5_UsernameErrato() throws Exception {
-        when(request.getParameter("username")).thenReturn("ac");
+        when(request.getParameter("username")).thenReturn("Ma");
         servlet.doPost(request, response);
         verifyFailure();
     }
@@ -196,7 +196,7 @@ class testRegisterCliente {
      */
     @Test
     void TC_1_1_11_NumCivicoErrato() throws Exception {
-        when(request.getParameter("house-number")).thenReturn("21a0");
+        when(request.getParameter("house-number")).thenReturn("1O");
         servlet.doPost(request, response);
         verifyFailure();
     }
@@ -207,7 +207,7 @@ class testRegisterCliente {
      */
     @Test
     void TC_1_1_12_CapErrato() throws Exception {
-        when(request.getParameter("cap")).thenReturn("2401f");
+        when(request.getParameter("cap")).thenReturn("84O23");
         servlet.doPost(request, response);
         verifyFailure();
     }
@@ -218,7 +218,7 @@ class testRegisterCliente {
      */
     @Test
     void TC_1_1_13_CittàErrato() throws Exception {
-        when(request.getParameter("city")).thenReturn("San Casciano Dei Bagni12");
+        when(request.getParameter("city")).thenReturn("Sale3rnO");
         servlet.doPost(request, response);
         verifyFailure();
     }
