@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 @MultipartConfig
 @WebServlet(name="addProduct", value = "/addProduct")
-public class addProduct extends HttpServlet {
+public class AddProduct extends HttpServlet {
 
     private FacadeDAO service = new FacadeDAO();
 
