@@ -15,6 +15,7 @@ public class Ordine {
     private Timestamp dataOrdine;
     private List<DettaglioOrdine> dettaglioOrdineList;
     private double totaleOrdine;
+    private int statoOrdine;
 
     public int getId() {
         return id;
@@ -64,4 +65,11 @@ public class Ordine {
         this.totaleOrdine = totaleOrdine;
     }
 
+    public int getStatoOrdine() {
+        return statoOrdine;
+    }
+
+    public void setStatoOrdine(int statoOrdine) {
+        this.statoOrdine = statoOrdine;
+    }
 }

@@ -35,6 +35,7 @@ public class OrdineDAO {
                 ordine.setIndirizzo(indirizzo);
                 ordine.setTrackID(rs.getString("track_id"));
                 ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                ordine.setStatoOrdine(rs.getInt("stato"));
 
                 PreparedStatement ps2 = con.prepareStatement("SELECT * FROM dettaglio_ordine WHERE ordine = ?");
                 ps2.setInt(1, ordine.getId());
@@ -65,7 +66,7 @@ public class OrdineDAO {
     }
 
     public synchronized List<String> doCheckout(Carrello carrello, Cliente cliente) {
-        String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,track_id) VALUES (?,?,?,?,?,?,?,?)";
+        String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,totale) VALUES (?,?,?,?,?,?,?,?)";
         int orderID = -1;
         double total = 0;
         List<String> errorList = new ArrayList<>();
@@ -102,9 +103,7 @@ public class OrdineDAO {
                 ps.setString(5, indirizzo.getCittà());
                 ps.setString(6, indirizzo.getProvincia());
                 ps.setString(7, indirizzo.getRegione());
-
-                String track = "F123D" + String.format("%6d", (int) (Math.random()*999999)).replace(' ','0');
-                ps.setString(8, track);
+                ps.setDouble(8, total);
 
                 if(ps.executeUpdate() < 0) {
                     connection.rollback();
