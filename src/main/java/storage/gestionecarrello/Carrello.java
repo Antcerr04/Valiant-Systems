@@ -78,4 +78,23 @@ public class Carrello {
         }
         return false;
     }
+    /**
+     * Checks if the shopping cart is empty.
+     * <p>
+     * If it's empty it returns {@code true} , if it contains items it return {@code false} .
+     * </p>
+     * @return {@code true} if cart is empty,
+     *         {@code false} if the cart is not empty
+     */
+    public boolean isEmpty() {
+        return carrelloItemList.isEmpty();
+    }
+
+    public double getCartTotal() {
+        double total = 0;
+        for(CarrelloItem carrelloItem : carrelloItemList) {
+            total += carrelloItem.getProdotto().getPrezzoSaldo() * carrelloItem.getQuantita();
+        }
+        return total;
+    }
 }
