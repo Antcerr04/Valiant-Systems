@@ -164,11 +164,20 @@ public class FacadeDAO {
 
     /**
      * Gets all the order that a given {@link Cliente} has made.
-     * @param cliente the {@Cliente} whose order have to be retrieved.
+     * @param cliente the {@link Cliente} whose order have to be retrieved.
      * @return a list of {@link Ordine} if there are any, an empty list otherwise.
      */
     public List<Ordine> getClientOrders(Cliente cliente){
         return ordineDAO.doRetrieveClientOrders(cliente);
+    }
+
+    /**
+     * Gets all the unshipped orders
+     * <p>Used by Managers</p>
+     * @return a list of unshipped {@link Ordine} if there are any, an empty list otherwise.
+     */
+    public List<Ordine> getAllUnshippedOrders(){
+        return ordineDAO.doRetrieveAllUnshippedOrders();
     }
 
     /**

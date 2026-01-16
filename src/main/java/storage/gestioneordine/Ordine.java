@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class Ordine {
     private int id;
+    private String nome;
+    private String cognome;
     private Indirizzo indirizzo;
     private String trackID;
     private Timestamp dataOrdine;
@@ -23,6 +25,22 @@ public class Ordine {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
     public Indirizzo getIndirizzo() {
