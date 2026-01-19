@@ -35,6 +35,7 @@ public class OrdineDAO {
                 ordine.setIndirizzo(indirizzo);
                 ordine.setTrackID(rs.getString("track_id"));
                 ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                ordine.setStatoOrdine(rs.getInt("stato"));
 
                 PreparedStatement ps2 = con.prepareStatement("SELECT * FROM dettaglio_ordine WHERE ordine = ?");
                 ps2.setInt(1, ordine.getId());
@@ -65,7 +66,7 @@ public class OrdineDAO {
     }
 
     public synchronized List<String> doCheckout(Carrello carrello, Cliente cliente) {
-        String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,track_id) VALUES (?,?,?,?,?,?,?,?)";
+        String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,totale) VALUES (?,?,?,?,?,?,?,?)";
         int orderID = -1;
         double total = 0;
         List<String> errorList = new ArrayList<>();
@@ -102,9 +103,7 @@ public class OrdineDAO {
                 ps.setString(5, indirizzo.getCittà());
                 ps.setString(6, indirizzo.getProvincia());
                 ps.setString(7, indirizzo.getRegione());
-
-                String track = "F123D" + String.format("%6d", (int) (Math.random()*999999)).replace(' ','0');
-                ps.setString(8, track);
+                ps.setDouble(8, total);
 
                 if(ps.executeUpdate() < 0) {
                     connection.rollback();
@@ -151,5 +150,58 @@ public class OrdineDAO {
             throw new RuntimeException(e);
         }
         return errorList;
+    }
+
+    public List<Ordine> doRetrieveAllUnshippedOrders() {
+        List<Ordine> ordineList = new ArrayList<Ordine>();
+
+        try(Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT utente.nome, utente.cognome, ordine.* FROM ordine inner join utente on utente.id_utente=ordine.utente WHERE stato = 0 ORDER BY data_ordine DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                double totale = 0;
+                Indirizzo indirizzo = new Indirizzo();
+                indirizzo.setVia(rs.getString("via"));
+                indirizzo.setNumCiv(rs.getInt("num_civico"));
+                indirizzo.setCap(rs.getInt("cap"));
+                indirizzo.setCittà(rs.getString("citta"));
+                indirizzo.setProvincia(rs.getString("provincia"));
+                indirizzo.setRegione(rs.getString("regione"));
+
+                Ordine ordine = new Ordine();
+                ordine.setId(rs.getInt("id"));
+                ordine.setNome(rs.getString("nome"));
+                ordine.setCognome(rs.getString("cognome"));
+                ordine.setIndirizzo(indirizzo);
+                ordine.setTrackID(rs.getString("track_id"));
+                ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                ordine.setStatoOrdine(rs.getInt("stato"));
+
+                PreparedStatement ps2 = con.prepareStatement("SELECT * FROM dettaglio_ordine WHERE ordine = ?");
+                ps2.setInt(1, ordine.getId());
+                ResultSet rs2 = ps2.executeQuery();
+                List<DettaglioOrdine> dettaglioList = new ArrayList<DettaglioOrdine>();
+                while (rs2.next()) {
+                    DettaglioOrdine dettaglio = new DettaglioOrdine();
+                    if(rs2.getInt("prodotto") == 0)
+                        dettaglio.setImmagine("DELETED.png");
+                    else
+                        dettaglio.setImmagine(rs2.getString("immagine"));
+
+                    dettaglio.setIdProdotto(rs2.getInt("prodotto"));
+                    dettaglio.setNomeProdotto(rs2.getString("nome_prod"));
+                    dettaglio.setQuantita(rs2.getInt("quantita"));
+                    dettaglio.setPrezzoUnitario(rs2.getDouble("prezzo_u"));
+                    dettaglioList.add(dettaglio);
+                    totale += dettaglio.getTotale();
+                }
+                ordine.setDettaglioOrdineList(dettaglioList);
+                ordine.setTotaleOrdine(totale);
+                ordineList.add(ordine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ordineList;
     }
 }

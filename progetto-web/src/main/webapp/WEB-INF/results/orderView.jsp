@@ -46,10 +46,18 @@
               <div>
                 <h4 style="margin-bottom: 5px;">Spedito a:</h4>
                 <p>${ordine.indirizzo.via}, ${ordine.indirizzo.numCiv}</p>
-                <p>${ordine.indirizzo.cap}, ${ordine.indirizzo.citta} (${ordine.indirizzo.provincia}) - ${ordine.indirizzo.regione}</p>
+                <p>${ordine.indirizzo.cap}, ${ordine.indirizzo.città} (${ordine.indirizzo.provincia}) - ${ordine.indirizzo.regione}</p>
               </div>
               <div>
-                <p><strong>Track ID:</strong> ${ordine.trackID}</p>
+                <c:choose>
+                  <c:when test="${ordine.statoOrdine == 0}">
+                  <p><strong>Stato:</strong>In Elaborazione</p>
+                  </c:when>
+                  <c:when test="${ordine.statoOrdine == 1}">
+                    <p><strong>Stato:</strong>Spedito</p>
+                    <p><strong>Track ID:</strong> ${ordine.trackID}</p>
+                  </c:when>
+                </c:choose>
                 <p><strong>Totale ordine:</strong> <fmt:formatNumber value="${ordine.totaleOrdine}" groupingUsed="no" maxFractionDigits="2" minFractionDigits="2"/>€</p>
               </div>
             </div>

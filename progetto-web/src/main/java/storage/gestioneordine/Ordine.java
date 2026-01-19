@@ -10,11 +10,14 @@ import java.util.List;
  */
 public class Ordine {
     private int id;
+    private String nome;
+    private String cognome;
     private Indirizzo indirizzo;
     private String trackID;
     private Timestamp dataOrdine;
     private List<DettaglioOrdine> dettaglioOrdineList;
     private double totaleOrdine;
+    private int statoOrdine;
 
     public int getId() {
         return id;
@@ -22,6 +25,22 @@ public class Ordine {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
     public Indirizzo getIndirizzo() {
@@ -64,4 +83,11 @@ public class Ordine {
         this.totaleOrdine = totaleOrdine;
     }
 
+    public int getStatoOrdine() {
+        return statoOrdine;
+    }
+
+    public void setStatoOrdine(int statoOrdine) {
+        this.statoOrdine = statoOrdine;
+    }
 }
