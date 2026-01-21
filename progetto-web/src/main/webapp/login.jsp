@@ -111,4 +111,4 @@ font-size: 18px;">
 </body>
 </html>
 
-<!--Bisogna ancora scrivere il file javascript, e manca il campo nel form della password dimenticata per inserire il codice di verifica dell'email-->
+

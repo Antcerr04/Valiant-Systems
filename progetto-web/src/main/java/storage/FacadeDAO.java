@@ -198,4 +198,13 @@ public class FacadeDAO {
      * @return true if successful update, else return false
      */
     public boolean updateAccount(Utente utente, Indirizzo indirizzo) { return utenteDAO.updateUtente(utente,indirizzo);}
+
+    /**
+     * Method used to delete a client
+     * @param email of the client to delete
+     * @return true if client is deleted else return false
+     */
+    public boolean deleteClient(String email) {
+        return utenteDAO.removeClient(email);
+    }
 }

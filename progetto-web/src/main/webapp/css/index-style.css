@@ -297,6 +297,7 @@ form#form-create-product{
     margin-bottom: 20px;
 }
 
+
 form#form-login input[type=text],form#form-login input[type=password],
 form#form-reset input[type=text],form#form-reset input[type=password],
 form#form-reset input[type=email],

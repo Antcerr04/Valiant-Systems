@@ -165,4 +165,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (registerForm) {
         initFormValidation(registerForm);
     }
+
+    const updatePasswordForm = document.getElementById("form-updatePassword");
+    if (updatePasswordForm) {
+        const passwordInput= updatePasswordForm.querySelector("#registerPassword");
+        if (passwordInput) {
+            initPasswordValidation(passwordInput);
+
+
+        }
+    }
 });

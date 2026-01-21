@@ -37,7 +37,9 @@
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/manage-orders" title="Vai alla gestione degli ordini da spedire"><span class="material-icons" style="width: 30px">local_shipping</span> Ordini</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/manage" title="Vai all'inventario dei PC"><span class="material-icons" style="width: 30px">lists</span> Inventario</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/insertProduct.jsp" title="Inserisci un nuovo PC"><span class="material-icons" style="width: 30px">add_to_queue</span> Aggiungi PC</a>
+              <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/updatePassword.jsp" title="Modifica password"><span class="material-icons" style="width: 30px">vpn_key</span> Modifica Password</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/logout" title="Disconnetti utente"><span class="material-icons" style="width: 30px">logout</span> Logout</a>
+
             </div>
           </li>
         </c:if>
@@ -47,7 +49,9 @@
             <div class="dropdown-content-hvr user-drop-hvr">
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/orders" title="Vai alla lista ordini"><span class="material-icons" style="width: 30px">receipt_long</span> Ordini</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/update.jsp" title="Modifica dati utente"><span class="material-icons" style="width: 30px">edit_square</span> Modifica dati</a>
+              <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/updatePassword.jsp" title="Modifica password"><span class="material-icons" style="width: 30px">vpn_key</span> Modifica Password</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/logout" title="Disconnetti utente"><span class="material-icons" style="width: 30px">logout</span> Logout</a>
+              <a  class="dropdown-result user-drop-hvr-child" href="javascript:void(0)" onclick="event.stopImmediatePropagation(); confermaEliminaAccount();" title="Elimina Acccount"><span class="material-icons" style="width: 30px">delete</span> Elimina account</a>
             </div>
           </li>
         </c:if>
@@ -127,6 +131,19 @@
   });
 
 </script>
+
+<script>
+  function confermaEliminaAccount(){
+    //Show popup
+    const scelta= confirm("Sei sicuro di voler eliminare definitivamente il tuo account? Questa azione non \u00e8 reversibile");
+
+    if(scelta){
+      //If Client confirm
+      window.location.href = "<%=request.getContextPath()%>/Delete";
+    }
+  }
+</script>
+
 <c:if test="${!empty cookie.notification}">
   <div id="error-banner">
     <div style="word-wrap: break-word;padding:5px 0">${fn:replace(cookie.notification.value, '-', ' ')}</div>
@@ -143,3 +160,4 @@
   </script>
 
 </c:if>
+
