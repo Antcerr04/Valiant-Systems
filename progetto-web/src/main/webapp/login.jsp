@@ -15,7 +15,8 @@
     <title>Login - Valiant Systems</title>
     <%@include file="WEB-INF/results/header.jsp" %>
     <link rel="stylesheet" href="css/index-style.css" type="text/css">
-    <script src="javascript/formvalidate.js" defer></script> <!--Ancora da definire-->
+    <script src="javascript/formvalidate.js" defer></script>
+    <script src="javascript/PasswordCriteria.js"></script>
     <script src="javascript/utility.js" defer></script>
     <style>
         .valid {
@@ -111,4 +112,4 @@ font-size: 18px;">
 </body>
 </html>
 
-<!--Bisogna ancora scrivere il file javascript, e manca il campo nel form della password dimenticata per inserire il codice di verifica dell'email-->
+

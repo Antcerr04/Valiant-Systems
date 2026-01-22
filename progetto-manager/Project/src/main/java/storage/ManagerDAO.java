@@ -61,4 +61,49 @@ public class ManagerDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isManager(String email) {
+        String query = "Select 1 from utente where email = ? and ruolo = ?";
+
+        try(Connection con = ConPool.getConnection();
+        PreparedStatement ps= con.prepareStatement(query);) {
+            ps.setString(1, email);
+            ps.setInt(2, 0);
+            try (ResultSet rs = ps.executeQuery()) {
+                boolean exist;
+                exist = rs.next();
+                return exist;
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteManager(String email) {
+        if (existsEmail(email)) {
+            String query = "Delete from utente where email = ? and ruolo = ?";
+
+            try (Connection con = ConPool.getConnection();
+                 PreparedStatement ps = con.prepareStatement(query);) {
+
+                ps.setString(1, email);
+                ps.setInt(2, 0);
+                int rs = ps.executeUpdate();
+                if (rs > 0) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+        else {
+            System.out.println("Account non trovato");
+            return false;
+        }
+    }
+
+
 }

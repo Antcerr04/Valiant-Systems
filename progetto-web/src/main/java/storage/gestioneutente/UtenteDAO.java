@@ -207,4 +207,19 @@ public class UtenteDAO {
     }
 
 
+    public boolean removeClient(String email) {
+        String query="Delete from utente where email=?";
+
+        try(Connection con = ConPool.getConnection();
+        PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, email);
+            int st = ps.executeUpdate();
+            if (st > 0) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

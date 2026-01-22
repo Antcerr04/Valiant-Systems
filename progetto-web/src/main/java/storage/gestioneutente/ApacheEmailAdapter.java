@@ -14,10 +14,10 @@ public class ApacheEmailAdapter implements EmailService{
             email.setHostName("smtp.gmail.com");
             email.setSmtpPort(465);
 
-            email.setAuthenticator(new DefaultAuthenticator("youremail@gmail.com","your passwordApp"));
+            email.setAuthenticator(new DefaultAuthenticator("antoniocerrone132@gmail.com","bzfw xiuj yckl szkz"));
             email.setSSLOnConnect(true);
 
-            email.setFrom("youremail@gmail.com");
+            email.setFrom("antoniocerrone132@gmail.com");
             email.setSubject(subject);
             email.setMsg(message);
             email.addTo(to);

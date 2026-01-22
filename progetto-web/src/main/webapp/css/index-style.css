@@ -297,6 +297,7 @@ form#form-create-product{
     margin-bottom: 20px;
 }
 
+
 form#form-login input[type=text],form#form-login input[type=password],
 form#form-reset input[type=text],form#form-reset input[type=password],
 form#form-reset input[type=email],
@@ -305,7 +306,8 @@ form#form-update-utente input,
 form#form-update-utente select,
 form#form-register select,
 form#form-update-product input,
-form#form-create-product input{
+form#form-create-product input,
+form#form-updatePassword input{
     height:40px;
     padding-left: 10px;
     font-size: 18px;
@@ -317,7 +319,8 @@ form#form-update-utente input,
 form#form-register input,
 form#form-register select,
 form#form-update-product,
-form#form-create-product{
+form#form-create-product,
+form#form-updatePassword{
     margin-bottom: 10px;
 }
 
