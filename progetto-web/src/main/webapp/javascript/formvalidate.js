@@ -57,28 +57,6 @@ async function validateEmail(input) {
 }
 
 
-//dynamically updates password criteria
-function initPasswordValidation(inputPassword) {
-    const divFeedback = document.getElementById("feedback");
-
-    inputPassword.addEventListener("focus", () => {
-        divFeedback.style.display = "block";
-    });
-
-    inputPassword.addEventListener("blur", () => {
-        divFeedback.style.display = "none";
-    });
-
-    inputPassword.addEventListener("input", () => {
-        const passwordValue = inputPassword.value;
-
-        document.getElementById("lenght").className = passwordValue.length >= 8 ? "valid" : "invalid";
-        document.getElementById("uppercase").className = /[A-Z]/.test(passwordValue) ? "valid" : "invalid";
-        document.getElementById("number").className = /[0-9]/.test(passwordValue) ? "valid" : "invalid";
-        document.getElementById("special").className = /[!@#\$%\^\&*\)\(+=._-]/.test(passwordValue) ? "valid" : "invalid";
-    });
-}
-
 //manages the validation of the registration form
 async function initFormValidation(form) {
     const username = form.querySelector("#username");
@@ -118,11 +96,6 @@ async function initFormValidation(form) {
     async function initPasswordResetValidation(form) {
         // Cerchiamo l'input con l'ID corretto
         const inputPassword = form.querySelector("#resetPassword");
-
-        if (inputPassword) {
-            // Attiva la comparsa dei criteri (valid/invalid)
-            initPasswordValidation(inputPassword);
-        }
 
         form.addEventListener("submit", function (event) {
             // Prendiamo il valore attuale della password al momento del click
@@ -165,14 +138,5 @@ document.addEventListener("DOMContentLoaded", function () {
     if (registerForm) {
         initFormValidation(registerForm);
     }
-
-    const updatePasswordForm = document.getElementById("form-updatePassword");
-    if (updatePasswordForm) {
-        const passwordInput= updatePasswordForm.querySelector("#registerPassword");
-        if (passwordInput) {
-            initPasswordValidation(passwordInput);
-
-
-        }
-    }
+    
 });

@@ -15,6 +15,7 @@
   <title>Modifica Password - Valiant System</title>
   <%@include file="WEB-INF/results/header.jsp" %>
   <link rel="stylesheet" href="css/index-style.css" type="text/css">
+ <script src="${pageContext.request.contextPath}/javascript/PasswordCriteria.js"></script>
 
   <style>
     .valid { color: green; }
@@ -34,13 +35,13 @@
 </c:if>
 
 <div class="container container-alt">
-  <a href="index.jsp" title="Vai alla homepage">
-    <img src="images/logo-form.png" alt="Logo Valiant Systems" id="form-logo" style="display: block; margin: 0 auto;">
+  <a href="index.jsp" title="Vai alla homepage" style="position: relative">
+    <img src="images/logo-form.png" alt="Logo Valiant Systems" id="form-logo">
   </a>
 
   <fieldset class="rounded">
 
-    <legend style="display: none;">Modifica Password</legend>
+    <legend style="z-index: -1;position: absolute;color: white;user-select: none;">Modifica Password</legend>
 
 
     <form action="UpdatePassword" method="post" name="form" id="form-updatePassword">
@@ -50,7 +51,7 @@
       <input type="password" name="actualPassword" id="actualPassword"
              required placeholder="Inserisci la password corrente" maxlength="50">
 
-      <label for="registerPassword" oninput="initPasswordValidation()">Nuova password</label>
+      <label for="registerPassword">Nuova password</label>
       <input type="password" id="registerPassword" name="registerPassword"
              required title="Almeno 8 caratteri, una maiuscola, un numero e un carattere speciale"
              maxlength="50" placeholder="Inserisci la nuova password">
@@ -77,7 +78,7 @@
 </html>
 
 <script>
-  // Questa funzione controlla se le due password sono identiche
+  // This function controls if passwords are equals
   function VerificaCorrispondenza() {
     const feedback = document.getElementById("feedbackPassword");
     const first = document.getElementById("registerPassword").value;
@@ -97,29 +98,4 @@
     }
   }
 
-  // Questa funzione attiva i pallini verde/rosso per i requisiti
-  function attivaValidazioneRequisiti() {
-    const inputPassword = document.getElementById("registerPassword");
-    const divFeedback = document.getElementById("feedback");
-
-    inputPassword.addEventListener("focus", () => {
-      divFeedback.style.display = "block";
-    });
-
-    inputPassword.addEventListener("blur", () => {
-      divFeedback.style.display = "none";
-    });
-
-    inputPassword.addEventListener("input", () => {
-      const val = inputPassword.value;
-      // Correzione ID "lenght" come scritto nella tua JSP
-      document.getElementById("lenght").className = val.length >= 8 ? "valid" : "invalid";
-      document.getElementById("uppercase").className = /[A-Z]/.test(val) ? "valid" : "invalid";
-      document.getElementById("number").className = /[0-9]/.test(val) ? "valid" : "invalid";
-      document.getElementById("special").className = /[!@#\$%\^\&*\)\(+=._-]/.test(val) ? "valid" : "invalid";
-    });
-  }
-
-  // Fai partire la validazione non appena la pagina è pronta
-  document.addEventListener("DOMContentLoaded", attivaValidazioneRequisiti);
 </script>

@@ -15,7 +15,8 @@
     <title>Login - Valiant Systems</title>
     <%@include file="WEB-INF/results/header.jsp" %>
     <link rel="stylesheet" href="css/index-style.css" type="text/css">
-    <script src="javascript/formvalidate.js" defer></script> <!--Ancora da definire-->
+    <script src="javascript/formvalidate.js" defer></script>
+    <script src="javascript/PasswordCriteria.js"></script>
     <script src="javascript/utility.js" defer></script>
     <style>
         .valid {
