@@ -39,6 +39,20 @@ public class Manager {
     }
 
     /**
+     * Construct to create a new Manager used to delete it
+     * @param nome of the manager
+     * @param cognome of the manager
+     * @param username of the manager
+     * @param email of the manager
+     */
+    public Manager(String nome, String cognome, String username, String email) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.email = email;
+    }
+
+    /**
      *
      * @return name of the manager
      */
