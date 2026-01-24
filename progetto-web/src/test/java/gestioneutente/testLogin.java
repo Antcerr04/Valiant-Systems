@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.FacadeDAO;
+import storage.gestioneutente.Cliente;
+import storage.gestioneutente.Indirizzo;
+import storage.gestioneutente.Manager;
 import storage.gestioneutente.Utente;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -130,28 +133,103 @@ public class testLogin {
     }
 
     /**
+     * Method used to test an error in DB
+     * @throws Exception
+     */
+    @Test
+    void TC_1_3_5_LoginErroreImprevisto() throws Exception {
+        //Force DAO to throw a generics exception
+        when(daoMock.getUserByCredentials(anyString(), anyString()))
+                .thenThrow(new RuntimeException("Errore DB"));
+
+        servlet.doPost(request, response);
+
+        //Verify that we are in the catch
+        verify(request).setAttribute(eq("exception"), any(RuntimeException.class));
+        verify(dispatcher).forward(request, response);
+    }
+
+    /**
+     * Method used to test when a Manager do login after insert a product in the cart
+     * @throws Exception
+     */
+    @Test
+    void TC_1_3_6_LoginManagerConCarrello() throws Exception {
+        String user = "Antcerr04";
+        String pass = "Antonio2004@";
+        Manager managerMock = mock(Manager.class);
+        when(managerMock.getUsername()).thenReturn(user);
+
+
+        when(request.getParameter("username")).thenReturn(user);
+        when(request.getParameter("password")).thenReturn(pass);
+
+
+        when(session.getAttribute("carrelloList")).thenReturn(new java.util.ArrayList<>());
+
+
+        when(daoMock.getUserByCredentials(user, pass)).thenReturn(managerMock);
+
+
+        servlet.doPost(request, response);
+
+
+        verify(session).removeAttribute("carrelloList");
+    }
+
+    /**
+     * Method used to test Manager Login without cart
+     * @throws Exception
+     */
+
+    @Test
+    void TC_1_3_7_LoginManagerSenzaCarrello() throws Exception {
+        Manager managerMock = mock(Manager.class);
+        when(managerMock.getUsername()).thenReturn("Antcerr04");
+
+        // Simula la presenza di un carrello precedente
+        when(session.getAttribute("carrelloList")).thenReturn(null);
+        when(daoMock.getUserByCredentials("Antcerr04", "Antonio2004@")).thenReturn(managerMock);
+
+        servlet.doPost(request, response);
+
+        verify(session,never()).removeAttribute("carrelloList");
+    }
+
+    /**
      * Method to test the success of login
      *
      * @throws Exception
      */
     @Test
-    void LoginSuccesso() throws Exception {
+    void TC_1_3_8_LoginSuccessoCliente() throws Exception {
         String user = "Mario2004";
         String pass = "Mario2004@";
+        Indirizzo indirizzo = new Indirizzo("via Rufigliano", 10, 84022, "Campania", "Salerno", "Salerno");
 
-        Utente utenteMock = new Utente();
-        utenteMock.setUsername(user);
-        utenteMock.setPassword(pass);
+
+        Cliente utenteMock = mock(Cliente.class);
+
+
+        when(utenteMock.getUsername()).thenReturn(user);
+        when(utenteMock.getPassword()).thenReturn(pass);
+        when(utenteMock.getIndirizzo()).thenReturn(indirizzo); // Serve per la riga dell'indirizzo
 
         when(request.getParameter("username")).thenReturn(user);
         when(request.getParameter("password")).thenReturn(pass);
         when(request.getSession()).thenReturn(session);
 
+
         when(daoMock.getUserByCredentials(user, pass)).thenReturn(utenteMock);
 
         servlet.doPost(request, response);
 
+
         verify(session).setAttribute(eq("utente"), eq(utenteMock));
+
+
+        verify(session).setAttribute(eq("indirizzo"), eq(indirizzo));
+
 
         verify(response).addCookie(argThat(cookie ->
                 cookie.getName().equals("notification") &&
@@ -161,4 +239,8 @@ public class testLogin {
 
         verify(dispatcher, never()).forward(request, response);
     }
+
+
+
+
 }
