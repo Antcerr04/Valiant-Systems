@@ -8,10 +8,11 @@ import storage.gestioneutente.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "Register", urlPatterns = {"/Register","/RegisterManager"})
+@WebServlet(name = "Register", urlPatterns = {"/Register", "/RegisterManager"})
 public class Register extends HttpServlet {
 
-    private FacadeDAO dao= new FacadeDAO();
+    private FacadeDAO dao = new FacadeDAO();
+
     //This is used for test
     public void setFaceDAO(FacadeDAO dao) {
         this.dao = dao;
@@ -21,7 +22,7 @@ public class Register extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recovery parameters
 
-
+        try {
             String nome = request.getParameter("name");
             String cognome = request.getParameter("surname");
             String email = request.getParameter("email");
@@ -35,7 +36,7 @@ public class Register extends HttpServlet {
                 try {
                     numeroCivico = Integer.parseInt(numeroCasaStr);
                 } catch (NumberFormatException e) {
-                    request.setAttribute("error", "Dati non validi o mancanti.");
+                    request.setAttribute("errorMSG", "Dati non validi o mancanti.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                     return;
                 }
@@ -45,7 +46,7 @@ public class Register extends HttpServlet {
                 try {
                     cap = Integer.parseInt(capStr);
                 } catch (NumberFormatException e) {
-                    request.setAttribute("error", "Dati non validi o mancanti.");
+                    request.setAttribute("errorMSG", "Dati non validi o mancanti.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                     return;
                 }
@@ -67,8 +68,8 @@ public class Register extends HttpServlet {
                     !Indirizzo.validateCittà(città) ||
                     !Indirizzo.validateCap(cap)) {
 
-                request.setAttribute("error", "Dati non validi o mancanti.");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
+                request.setAttribute("errorMSG", "Dati non validi o mancanti.");
+                request.getRequestDispatcher("WEB-INF/results/error.jsp").forward(request, response);
                 return;
             }
 
@@ -77,17 +78,15 @@ public class Register extends HttpServlet {
 
 
             if (dao.isEmailPresent(email)) {
-                request.setAttribute("error", "Email già in uso.");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
+                request.setAttribute("errorMSG", "Email già in uso.");
+                request.getRequestDispatcher("WEB-INF/results/error.jsp").forward(request, response);
                 return;
             }
             if (dao.isUserPresent(username)) {
-                request.setAttribute("error", "Username già in uso.");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
+                request.setAttribute("errorMSG", "Username già in uso.");
+                request.getRequestDispatcher("WEB-INF/results/error.jsp").forward(request, response);
                 return;
             }
-
-
 
 
             // Create address
@@ -106,9 +105,12 @@ public class Register extends HttpServlet {
             cookie.setSecure(true);
             response.addCookie(cookie);
             response.sendRedirect("login.jsp");
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
+            dispatcher.forward(request, response);
         }
-
-
+    }
 
 
 }

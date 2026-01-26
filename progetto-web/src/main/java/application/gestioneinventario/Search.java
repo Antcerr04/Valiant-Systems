@@ -14,10 +14,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-//This Servlet is used to search a product
+/**
+ * Servlet used to Search a product
+ */
 @WebServlet(name = "Search", value = "/search")
 public class Search extends HttpServlet {
     private FacadeDAO service = new FacadeDAO();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

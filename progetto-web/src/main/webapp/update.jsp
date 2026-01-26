@@ -36,7 +36,6 @@
         <fieldset class="rounded">
           <legend style="z-index: -1;position: absolute;color: white;user-select: none;">Aggiorna dati</legend>
           <form action="Modifica" method="post" id="form-update-utente">
-            <input type="hidden" name="source" value="update">
             <!--Serve per vedere che file chiama la servlet modifica -->
             <h1>Aggiorna dati</h1>
 

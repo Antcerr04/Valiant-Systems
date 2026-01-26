@@ -13,6 +13,9 @@ import storage.gestioneutente.Utente;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Servlet to update Product
+ */
 @WebServlet(name = "UpdateProduct", value = "/UpdateProduct")
 @MultipartConfig
 public class UpdateProduct extends HttpServlet {
@@ -23,8 +26,8 @@ public class UpdateProduct extends HttpServlet {
         String source = request.getParameter("source");
         Utente utente = (Utente) request.getSession().getAttribute("utente");
         if (utente instanceof Manager) {
-            if(source != null){
-                if (source.equals("showAll")) {  //called from adminView to show from for update product
+            if (source != null) {
+                if (source.equals("showAll")) {  //called from adminView to show form for update product
                     if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                         int id = Integer.parseInt(request.getParameter("id"));
                         Prodotto prodotto = service.getProductById(id);
@@ -33,12 +36,12 @@ public class UpdateProduct extends HttpServlet {
                             session.setAttribute("prodotto", prodotto);
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/updateProduct.jsp");
                             dispatcher.forward(request, response);
-                        }else{
-                            request.setAttribute("errorMSG", "Il prodotto con id '"+id+"' non è presente nel database!");
+                        } else {
+                            request.setAttribute("errorMSG", "Il prodotto con id '" + id + "' non è presente nel database!");
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                             dispatcher.forward(request, response);
                         }
-                    }else{
+                    } else {
                         request.setAttribute("errorMSG", "Il campo prodotto id non può essere vuoto!");
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                         dispatcher.forward(request, response);
@@ -205,12 +208,12 @@ public class UpdateProduct extends HttpServlet {
                         dispatcher.forward(request, response);
                     }
                 }
-            }else{
+            } else {
                 request.setAttribute("errorMSG", "Errore! Operazione non valida.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(request, response);
             }
-        }else{
+        } else {
             request.setAttribute("errorMSG", "Accesso negato. La risorsa richiesta richiede privilegi di amministratore.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
             dispatcher.forward(request, response);

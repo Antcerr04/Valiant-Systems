@@ -23,20 +23,19 @@ public class EmailServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("send".equals(action)) {
-            // 1. Genera codice di 6 cifre
+            //Generate code of 6 numbers
             String codice = String.format("%06d", new Random().nextInt(999999));
 
-            //2. Salva in sessione per il controllo futuro
+            // Save in the session for future control
             HttpSession session = request.getSession();
             session.setAttribute("codiceVerifica", codice);
             session.setAttribute("emailReset", emailDestinatario);
 
-            //3. Usa l'Adapter per inviare
+            //Use Adapter to Send Email
             EmailService mailer = new ApacheEmailAdapter();
             mailer.sendEmail(emailDestinatario, "Codice di Verifica Valiant Systems",
                     "Il tuo codice di sicurezza è : " + codice);
 
-            // 4. Risposa al JavaScript
             response.setContentType("application/json");
             response.getWriter().write("{\"status\":\"success\"}");
         }

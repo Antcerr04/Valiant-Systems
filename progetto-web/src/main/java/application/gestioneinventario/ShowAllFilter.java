@@ -13,10 +13,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-//This Servlet is used to add cpu and gpu in select element within showAll.jsp
+/**
+ * Servlet used to populate selects of gpu and cpu
+ */
 @WebServlet(name = "ShowAllFilter", urlPatterns = {"/getCPU", "/getGPU"})
 public class ShowAllFilter extends HttpServlet {
     private FacadeDAO service = new FacadeDAO();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

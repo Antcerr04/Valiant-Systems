@@ -8,11 +8,17 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-public class TestLoginCliente extends AbstractLoginTest{
+public class TestLoginCliente extends AbstractLoginTest {
+    private static final String user = "Mario04";
+    private static final String pass = "Mario200@";
+
+    /**
+     * Method used to test a correct Client login
+     * @throws Exception
+     */
     @Test
     void TC_1_3_6_LoginSuccessoCliente() throws Exception {
-        String user = "Mario2004";
-        String pass = "Mario2004@";
+
         Indirizzo indirizzo = new Indirizzo("via Rufigliano", 10, 84022, "Campania", "Salerno", "Salerno");
 
 
@@ -21,7 +27,7 @@ public class TestLoginCliente extends AbstractLoginTest{
 
         when(utenteMock.getUsername()).thenReturn(user);
         when(utenteMock.getPassword()).thenReturn(pass);
-        when(utenteMock.getIndirizzo()).thenReturn(indirizzo); // Serve per la riga dell'indirizzo
+        when(utenteMock.getIndirizzo()).thenReturn(indirizzo);
 
         when(request.getParameter("username")).thenReturn(user);
         when(request.getParameter("password")).thenReturn(pass);

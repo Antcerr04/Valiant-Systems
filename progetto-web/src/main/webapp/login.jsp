@@ -77,9 +77,8 @@ font-size: 18px;">
             </form>
 
             <!--Form to show when client click on "Password dimenticata"-->
-            <form action="Modifica" method="post" id="form-reset" name="update" style="display: none">
+            <form action="Recovery" method="post" id="form-reset" name="update" style="display: none">
                 <h1>Resetta password</h1>
-                <input type="hidden" name="source" value="reset">
 
                 <div id="step-email">
                     <label for="reset-email">E-mail</label>

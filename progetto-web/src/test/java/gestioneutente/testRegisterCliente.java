@@ -55,17 +55,19 @@ class testRegisterCliente {
 
     /**
      * Method used to verify a failure
+     *
      * @throws Exception
      */
     private void verifyFailure() throws Exception {
         //Verify the failure (back to register page)
         verify(dispatcher).forward(request, response);
         //Verify that error attribute is setting
-        verify(request).setAttribute(eq("error"), anyString());
+        verify(request).setAttribute(eq("errorMSG"), anyString());
     }
 
     /**
      * Method used to test failure when name isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -79,6 +81,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when surname isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -91,6 +94,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when email isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -103,6 +107,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when email already exist
+     *
      * @throws Exception
      */
     @Test
@@ -115,11 +120,12 @@ class testRegisterCliente {
 
         servlet.doPost(request, response);
         verifyFailure();
-        verify(request).setAttribute(eq("error"), contains("Email già in uso."));
+        verify(request).setAttribute(eq("errorMSG"), contains("Email già in uso."));
     }
 
     /**
      * Method to test a failure when username isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -131,6 +137,7 @@ class testRegisterCliente {
 
     /**
      * Method to test a failure when username already exist
+     *
      * @throws Exception
      */
     @Test
@@ -142,11 +149,12 @@ class testRegisterCliente {
 
         servlet.doPost(request, response);
         verifyFailure();
-        verify(request).setAttribute(eq("error"), contains("Username già in uso."));
+        verify(request).setAttribute(eq("errorMSG"), contains("Username già in uso."));
     }
 
     /**
      * Method used to test when a password isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -158,6 +166,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when a regione isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -169,6 +178,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when a province isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -180,6 +190,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when via isn't correct
+     *
      * @throws Exception
      */
 
@@ -192,6 +203,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when numCivico isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -201,8 +213,10 @@ class testRegisterCliente {
         verifyFailure();
     }
 
+
     /**
      * Method used to test a failure when cap isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -214,6 +228,7 @@ class testRegisterCliente {
 
     /**
      * Method used to test a failure when city isn't correct
+     *
      * @throws Exception
      */
     @Test
@@ -223,12 +238,35 @@ class testRegisterCliente {
         verifyFailure();
     }
 
+
     /**
-     * Method used to test a correct registration of the Clients
+     * Method used to test an error in DB
+     *
      * @throws Exception
      */
+
     @Test
-    void TestRegistrazione() throws Exception {
+    void TC_1_1_14_RegisterErroreImprevisto() throws Exception {
+
+        Cliente cliente = mock(Cliente.class);
+        //Force DAO to throw a generics exception
+        doThrow(new RuntimeException("Errore DB")).when(daoMock).saveClient(any(Cliente.class));
+
+        servlet.doPost(request, response);
+
+        //Verify that we are in the catch
+        verify(request).setAttribute(eq("exception"), any(RuntimeException.class));
+        verify(dispatcher).forward(request, response);
+    }
+
+    /**
+     * Method used to test a correct registration of the Clients
+     *
+     * @throws Exception
+     */
+
+    @Test
+    void TC_1_1_15_TestRegistrazioneCliente() throws Exception {
         when(daoMock.isEmailPresent(anyString())).thenReturn(false);
         when(daoMock.isUserPresent(anyString())).thenReturn(false);
 
@@ -244,5 +282,6 @@ class testRegisterCliente {
         verify(dispatcher, never()).forward(request, response);
 
     }
+
 
 }

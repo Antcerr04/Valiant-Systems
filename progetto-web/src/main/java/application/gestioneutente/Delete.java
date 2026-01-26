@@ -6,13 +6,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import storage.FacadeDAO;
 import storage.gestioneutente.Cliente;
-import storage.gestioneutente.Utente;
+
 
 import java.io.IOException;
 
-@WebServlet(name="Delete", value = "/Delete")
+/**
+ * Servlet to delete Client
+ */
+@WebServlet(name = "Delete", value = "/Delete")
 public class Delete extends HttpServlet {
     private FacadeDAO dao = new FacadeDAO();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //Get Session
@@ -21,10 +25,10 @@ public class Delete extends HttpServlet {
         //Get user
         Cliente cliente = (Cliente) session.getAttribute("utente");
 
-        if(cliente != null) {
-            boolean success=dao.deleteClient(cliente.getEmail());
+        if (cliente != null) {
+            boolean success = dao.deleteClient(cliente.getEmail());
 
-            if(success){
+            if (success) {
                 //Disconnect Client
                 session.removeAttribute("utente");
                 session.invalidate();
@@ -36,7 +40,7 @@ public class Delete extends HttpServlet {
                 return;
             }
 
-        } else{
+        } else {
             req.setAttribute("errorMSG", "Errore durante l'eliminazione dell'account");
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
             rd.forward(req, resp);
