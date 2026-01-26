@@ -1,4 +1,4 @@
-package gestioneutente;
+package application.gestioneutente;
 
 import application.gestioneutente.Register;
 import jakarta.servlet.RequestDispatcher;

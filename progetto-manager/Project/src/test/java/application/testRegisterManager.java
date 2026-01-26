@@ -1,4 +1,5 @@
-import application.Insert;
+package application;
+
 import org.example.Main;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
