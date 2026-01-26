@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "Validate", value = "/Validate")
 public class Validate extends HttpServlet {
     private FacadeDAO service = new FacadeDAO();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);

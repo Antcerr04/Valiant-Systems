@@ -5,6 +5,9 @@ import storage.ManagerDAO;
 
 import java.util.Scanner;
 
+/**
+ * Servlet to delete Manager
+ */
 public class Delete {
     public static Scanner sc = new Scanner(System.in);
 

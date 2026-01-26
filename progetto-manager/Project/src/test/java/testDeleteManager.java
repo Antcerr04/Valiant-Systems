@@ -52,7 +52,9 @@ public class testDeleteManager {
     }
 
 
-
+    /**
+     * Method used to test when email isn't correct
+     */
     @Test
     void TC_1_6_1_EmailErrato(){
         simulaInput("mariorossigmail.com");
@@ -60,12 +62,39 @@ public class testDeleteManager {
         assertTrue(outContent.toString().contains("Email non valida"));
     }
 
+    /**
+     * Method used to test when email doesn't exist
+     */
     @Test
     void TC_1_6_2_EmailEsistente(){
         when(daoMock.isManager(EMAIL)).thenReturn(false);
         simulaInput(EMAIL);
         Delete.removeManager(daoMock);
         assertTrue(outContent.toString().contains("Nessun account manager associato a quell'email"));
+    }
+
+    /**
+     * Method used to test an error into Database
+     */
+    @Test
+    void TC_1_6_3_testErrore(){
+        when(daoMock.isManager(EMAIL)).thenReturn(true);
+        when(daoMock.deleteManager(EMAIL)).thenReturn(false);
+        simulaInput(EMAIL);
+        Delete.removeManager(daoMock);
+        assertTrue(outContent.toString().contains("Manager not successfully deleted"));
+    }
+
+    /**
+     * Method used to test a correct remove of the manager
+     */
+    @Test
+    void TC_1_6_4_testDeleteManager(){
+        when(daoMock.isManager(EMAIL)).thenReturn(true);
+        when(daoMock.deleteManager(EMAIL)).thenReturn(true);
+        simulaInput(EMAIL);
+        Delete.removeManager(daoMock);
+        assertTrue(outContent.toString().contains("Manager successfully deleted"));
     }
 
 

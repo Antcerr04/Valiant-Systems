@@ -15,7 +15,9 @@ import storage.gestioneinventario.ProdottoDAO;
 import java.io.IOException;
 import java.util.List;
 
-//The function of this servlet is show products
+/**
+ * Servlet used to show all product or to show all product in sale or to show manager view
+ */
 @WebServlet(name = "ShowAllServlet", urlPatterns = {"/show", "/sale", "/manage"})
 public class ShowAll extends HttpServlet {
     @Override

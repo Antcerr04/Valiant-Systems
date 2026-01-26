@@ -12,6 +12,10 @@ import storage.gestioneutente.Utente;
 
 import java.io.File;
 import java.io.IOException;
+
+/**
+ * Servlet to add Product
+ */
 @MultipartConfig
 @WebServlet(name="addProduct", value = "/addProduct")
 public class AddProduct extends HttpServlet {

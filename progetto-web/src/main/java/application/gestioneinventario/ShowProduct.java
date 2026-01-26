@@ -12,7 +12,10 @@ import storage.gestioneinventario.ProdottoDAO;
 
 import java.io.IOException;
 
-@WebServlet(name="ShowProduct", value = "/ShowProduct")
+/**
+ * Servlet to show a single product
+ */
+@WebServlet(name = "ShowProduct", value = "/ShowProduct")
 public class ShowProduct extends HttpServlet {
 
     private FacadeDAO dao = new FacadeDAO();
@@ -25,24 +28,23 @@ public class ShowProduct extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             //call the sql query to get the product's id
 
-            Prodotto prodotto=dao.getProductById(id);
+            Prodotto prodotto = dao.getProductById(id);
 
-            if(prodotto!=null){
+            if (prodotto != null) {
                 req.setAttribute("prodotto", prodotto);
                 RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/results/productPage.jsp");
                 rd.forward(req, resp);
 
-            }
-            else {
-                req.setAttribute("errorMSG", "Il prodotto con id "+id+" non è presente nel database!");
+            } else {
+                req.setAttribute("errorMSG", "Il prodotto con id " + id + " non è presente nel database!");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(req, resp);
 
             }
 
 
-        }else {
-            req.setAttribute("errorMSG","Il campo prodtto id non può essere vuoto!");
+        } else {
+            req.setAttribute("errorMSG", "Il campo prodtto id non può essere vuoto!");
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
             dispatcher.forward(req, resp);
         }

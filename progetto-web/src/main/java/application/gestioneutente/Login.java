@@ -18,6 +18,7 @@ public class Login extends HttpServlet {
     public void setFaceDAO(FacadeDAO dao) {
         this.dao = dao;
     }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -27,7 +28,7 @@ public class Login extends HttpServlet {
 
             // Sever-side validation
             if (!Utente.validateUsername(username) ||
-                    !Utente.validatePassword(password)){
+                    !Utente.validatePassword(password)) {
                 request.setAttribute("errorMSG", "Username o password non validi.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(request, response);
@@ -36,19 +37,19 @@ public class Login extends HttpServlet {
 
             // Access at the data
 
-            Utente utente = dao.getUserByCredentials(username,password);
-            //If utente isn't null put it in the session
+            Utente utente = dao.getUserByCredentials(username, password);
+            //If user isn't null put it in the session
             if (utente != null) {
 
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(60 * 60); // 1 hour
                 session.setAttribute("utente", utente);
-                if(utente instanceof Cliente c){ //if the user is a client, put the address in the session
-                    session.setAttribute("indirizzo",c.getIndirizzo());
+                if (utente instanceof Cliente c) { //if the user is a client, put the address in the session
+                    session.setAttribute("indirizzo", c.getIndirizzo());
                 }
 
                 //Remove cart from session if a manager logs in with items in cart
-                if((utente instanceof Manager) && ((session.getAttribute("carrelloList") != null))){
+                if ((utente instanceof Manager) && ((session.getAttribute("carrelloList") != null))) {
                     session.removeAttribute("carrelloList");
                 }
 
@@ -58,7 +59,7 @@ public class Login extends HttpServlet {
                 cookie.setSecure(true);
                 response.addCookie(cookie);
                 response.sendRedirect("index.jsp");
-            } else { //  if utente is null
+            } else { //  if user is null
                 request.setAttribute("errorMSG", "Username o password incorretti.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                 dispatcher.forward(request, response);

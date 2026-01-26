@@ -2,15 +2,22 @@ package gestioneutente;
 
 import application.gestioneutente.Modifica;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.ArgumentCaptor;
 import storage.FacadeDAO;
 import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Indirizzo;
+import storage.gestioneutente.Utente;
 
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class testUpdate {
@@ -175,7 +182,7 @@ public class testUpdate {
     }
 
     /**
-     * Method used to test when città isnt't correct
+     * Method used to test a failure when città isn't correct
      *
      * @throws Exception
      */
@@ -190,6 +197,51 @@ public class testUpdate {
         verify(dispatcher).forward(request, response);
         //Verify that error attribute is setting
         verify(request).setAttribute(eq("errorMSG"), eq("Dati indirizzo non validi"));
+    }
+
+    /**
+     * Mehod used to test an error in db
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+
+    @Test
+    void TC_1_4_9_testErrore() throws ServletException, IOException {
+        when(daoMock.updateAccount(any(Utente.class), any(Indirizzo.class))).thenReturn(false);
+
+        servlet.doPost(request, response);
+
+        verify(dispatcher).forward(request, response);
+        verify(request).setAttribute(eq("errorMSG"), eq("Operazione non riuscita"));
+    }
+
+
+    /**
+     * Method used to test a correct update of user
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    void TC_1_4_10_testAggiornamento() throws ServletException, IOException {
+
+        when(daoMock.updateAccount(any(), any())).thenReturn(true);
+
+        // 2. Execution
+        servlet.doPost(request, response);
+
+        // 3. Verify Cookie
+        ArgumentCaptor<Cookie> cookieCaptor = ArgumentCaptor.forClass(Cookie.class);
+        verify(response).addCookie(cookieCaptor.capture());
+
+        Cookie cookieInviato = cookieCaptor.getValue();
+
+
+        assertEquals("notification", cookieInviato.getName(), "Il nome del cookie deve essere 'notification'");
+        assertEquals("Riprstino-eseguito-successo.", cookieInviato.getValue(), "Il messaggio del cookie non corrisponde");
+
+        verify(response).sendRedirect("index.jsp");
     }
 
 }
