@@ -16,6 +16,10 @@ import java.io.IOException;
 public class UpdatePassword extends HttpServlet {
     FacadeDAO dao = new FacadeDAO();
 
+    public void setFaceDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String passwordAttuale = req.getParameter("actualPassword");
@@ -65,6 +69,12 @@ public class UpdatePassword extends HttpServlet {
             cookie.setMaxAge(1);
             resp.addCookie(cookie);
             resp.sendRedirect("index.jsp");
+        }
+        else {
+            req.setAttribute("errorMSG", "Errore nel Database");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");
+            dispatcher.forward(req, resp);
+            return;
         }
 
 

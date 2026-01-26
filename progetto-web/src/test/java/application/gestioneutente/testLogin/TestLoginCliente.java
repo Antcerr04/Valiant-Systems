@@ -1,4 +1,4 @@
-package gestioneutente.testLogin;
+package application.gestioneutente.testLogin;
 
 import org.junit.jupiter.api.Test;
 import storage.gestioneutente.Cliente;

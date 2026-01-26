@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import storage.FacadeDAO;
 
 import java.io.IOException;
 
@@ -12,6 +13,11 @@ import java.io.IOException;
  */
 @WebServlet(name = "Logout", value = "/logout")
 public class Logout extends HttpServlet {
+    private FacadeDAO dao = new FacadeDAO();
+
+    public void setFacadeDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

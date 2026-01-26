@@ -1,4 +1,4 @@
-package gestioneutente.testLogin;
+package application.gestioneutente.testLogin;
 
 import application.gestioneutente.Login;
 import jakarta.servlet.RequestDispatcher;

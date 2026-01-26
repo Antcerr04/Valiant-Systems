@@ -1,4 +1,4 @@
-package gestioneutente;
+package application.gestioneutente;
 
 import application.gestioneutente.Modifica;
 import application.gestioneutente.RecoveryPassword;
