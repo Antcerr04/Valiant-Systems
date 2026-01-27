@@ -34,7 +34,7 @@ class testRegisterCliente {
         session = mock(HttpSession.class);
         dispatcher = mock(RequestDispatcher.class);
         daoMock = mock(FacadeDAO.class);
-        servlet.setFaceDAO(daoMock);
+        servlet.setFacadeDAO(daoMock);
 
         when(request.getSession()).thenReturn(session);
         when(request.getParameter("name")).thenReturn("Mario");
