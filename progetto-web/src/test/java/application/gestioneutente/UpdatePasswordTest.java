@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import storage.FacadeDAO;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class testUpdatePassword {
+public class UpdatePasswordTest {
 
     private final String PASSWORD_ATTUALE="Antonio2004@";
     private final String NEW_PASSWORD="Antonio2005@";

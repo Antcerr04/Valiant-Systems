@@ -1,6 +1,5 @@
 package application.gestioneutente;
 
-import application.gestioneutente.Register;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ import storage.gestioneutente.Cliente;
 import static org.mockito.Mockito.*;
 
 //This class is used to Tester Registrazione cliente
-class testRegisterCliente {
+class RegisterClienteTest {
 
     private Register servlet;
     private HttpServletRequest request;

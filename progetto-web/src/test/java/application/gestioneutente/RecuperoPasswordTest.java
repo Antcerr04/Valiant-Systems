@@ -1,7 +1,5 @@
 package application.gestioneutente;
 
-import application.gestioneutente.Modifica;
-import application.gestioneutente.RecoveryPassword;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class testRecuperoPassword {
+public class RecuperoPasswordTest {
     private RecoveryPassword servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;

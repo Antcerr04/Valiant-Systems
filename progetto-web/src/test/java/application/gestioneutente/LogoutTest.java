@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
-public class testLogout {
+public class LogoutTest {
 
     private Logout servlet;
     private HttpServletRequest request;
