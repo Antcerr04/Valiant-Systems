@@ -186,14 +186,14 @@ public class Indirizzo {
      * @return true if regione respects parameters, else return false
      */
     public static boolean validateRegione(String regione) {
-        return regione != null && !regione.trim().isEmpty();
+        return RegioneService.validateRegione(regione);
     }
 
     /**
      * @param provincia to validate
      * @return true if provincia respects parameters, else return false
      */
-    public static boolean validateProvincia(String provincia) {
-        return provincia != null && !provincia.trim().isEmpty();
+    public static boolean validateProvincia(String regione,String provincia) {
+        return RegioneService.validateProvincia(regione,provincia);
     }
 }

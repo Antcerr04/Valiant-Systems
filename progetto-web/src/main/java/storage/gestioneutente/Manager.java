@@ -22,7 +22,7 @@ public class Manager extends Utente {
      * @param password origin password of the manager
      */
     public Manager(String nome, String cognome, String username, String email, String password) {
-        super(nome, cognome, username, password, email);
+        super(nome, cognome, username,email,password);
     }
 
     public boolean isManager() {

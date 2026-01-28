@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-public class TestLoginCliente extends AbstractLoginTest {
+public class LoginClienteTest extends AbstractLoginTest {
     private static final String user = "Mario04";
     private static final String pass = "Mario200@";
 

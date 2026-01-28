@@ -1,6 +1,5 @@
 package application.gestioneutente;
 
-import application.gestioneutente.Modifica;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -20,7 +19,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class testUpdate {
+public class UpdateTest {
     private Modifica servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;

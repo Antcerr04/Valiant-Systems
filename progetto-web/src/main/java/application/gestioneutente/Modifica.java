@@ -22,7 +22,7 @@ public class Modifica extends HttpServlet {
         this.service=service;
     }
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
             try {
                 Utente utenteAttuale= (Utente) session.getAttribute("utente");
@@ -49,7 +49,7 @@ public class Modifica extends HttpServlet {
 
                 //Validation address
                 if(!Indirizzo.validateRegione(regione) ||
-                        !Indirizzo.validateProvincia(provincia) ||
+                        !Indirizzo.validateProvincia(regione,provincia) ||
                         !Indirizzo.validateVia(via) ||
                         !Indirizzo.validateNumCiv(Integer.parseInt(numCivico)) ||
                         !Indirizzo.validateCap(Integer.parseInt(cap)) ||

@@ -20,7 +20,7 @@ public class RecoveryPassword  extends HttpServlet {
         this.service = service;
     }
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
         String emailInserita = req.getParameter("email");

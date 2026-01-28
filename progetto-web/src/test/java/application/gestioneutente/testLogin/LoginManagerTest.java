@@ -6,7 +6,7 @@ import storage.gestioneutente.Manager;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.never;
 
-public class TestLoginManager extends AbstractLoginTest {
+public class LoginManagerTest extends AbstractLoginTest {
     private static final String username = "Antcerr04";
     private static final String password = "Antonio2004@";
 
