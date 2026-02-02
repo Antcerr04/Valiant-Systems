@@ -207,4 +207,15 @@ public class FacadeDAO {
     public boolean deleteClient(String email) {
         return utenteDAO.removeClient(email);
     }
+
+
+    /**
+     * Marks an unshipped {@link Ordine} with a given {@code orderID}
+     * <p>Used by Managers</p>
+     * @param orderID the {@code id} of the {@link Ordine} to mark as sent.
+     * @return {@code true} if the order was marked as shipped successfully, {@code false} if the order was not found OR already marked as shipped.
+     */
+    public boolean sendOrder(int orderID){
+        return ordineDAO.doSendOrder(orderID);
+    }
 }

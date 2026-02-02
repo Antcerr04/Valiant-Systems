@@ -10,8 +10,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <nav id="mainNav">
   <a class="home" href="<%=request.getContextPath()%>/index.jsp"><img id="logo" src="<%=request.getContextPath()%>/images/logo.png" alt="Valiant System Homepage" title="Vai alla homepage" ></a>
-  <a href="show">Lista PC</a>
-  <a href="sale">Saldi</a>
+  <a href="<%=request.getContextPath()%>/show">Lista PC</a>
+  <a href="<%=request.getContextPath()%>/sale">Saldi</a>
   <a href="<%=request.getContextPath()%>/about.jsp">Dove Siamo</a>
   <ul id="sideMain1">
     <li class="right dropdown"><a href="#search" title="Cerca un PC" id="link-search"><span class="material-icons">search</span></a>
@@ -74,7 +74,7 @@
         var textLenght = 0;
         if(resultJSON.length !== 0 ) {
           for (var i = 0; i < resultJSON.length; i++) {
-            resultHTML += "<a class=\"dropdown-result\" href=\"./ShowProduct?id=" + resultJSON[i].id + "\"><p><img class=\"img-dropdown\" alt=\"Immagine PC\" src=\"./images/PCimages/" + resultJSON[i].immagine + "\"><b>" + resultJSON[i].nome + "</b></p></a><br>";
+            resultHTML += "<a class=\"dropdown-result\" href=\"<%= request.getContextPath() %>/ShowProduct?id=" + resultJSON[i].id + "\"><p><img class=\"img-dropdown\" alt=\"Immagine PC\" src=\"<%= request.getContextPath() %>/images/PCimages/" + resultJSON[i].immagine + "\"><b>" + resultJSON[i].nome + "</b></p></a><br>";
             var len = resultJSON[i].nome;
             if(textLenght < len.length)
               textLenght = len.length;
@@ -91,7 +91,7 @@
 
       }
     };
-    xhttp.open("POST", "search", true);
+    xhttp.open("POST", "<%= request.getContextPath() %>/search", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("q="+query);
 

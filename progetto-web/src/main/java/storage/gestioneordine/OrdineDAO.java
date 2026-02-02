@@ -204,4 +204,20 @@ public class OrdineDAO {
         }
         return ordineList;
     }
+
+    public boolean doSendOrder(int id) {
+        try(Connection con = ConPool.getConnection()){
+            String query= "UPDATE ordine SET stato=1 , track_id=? WHERE id=? AND stato=0";
+            PreparedStatement ps = con.prepareStatement(query);
+            String track = "F123D" + String.format("%6d", (int) (Math.random()*999999)).replace(' ','0');
+            ps.setString(1,track);
+            ps.setInt(2,id);
+            if(ps.executeUpdate()>0){
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 }

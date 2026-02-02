@@ -47,7 +47,16 @@
                                 <tr>
                                     <td style="white-space: nowrap;">
                                         <div style="display: flex; gap: 8px; align-items: center;">
-                                            test space
+                                            <!-- SEND ORDER FORM -->
+                                            <form id="sendForm-${ordine.id}" action="manage-orders/send" method="post"
+                                                  style="margin: 0;">
+                                                <input type="hidden" name="id" value="${ordine.id}">
+                                                <button type="button" onclick="confirmSend(${ordine.id})"
+                                                        style="border: none; background: none; cursor: pointer;"
+                                                        title="Invia ordine">
+                                                    <span class="material-icons table-btn" style="background-color: #009924">local_shipping</span>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
 
@@ -82,9 +91,9 @@
 </body>
 <script>
 
-    function confirmDelete(id) {
-        if (confirm('Operazione irreversibile.\nVuoi davvero cancellare questo prodotto?')) {
-            document.getElementById('deleteForm-' + id).submit();
+    function confirmSend(id) {
+        if (confirm('Operazione irreversibile.\nVuoi davvero marcare l\'ordine come inviato?')) {
+            document.getElementById('sendForm-' + id).submit();
         }
 
     }

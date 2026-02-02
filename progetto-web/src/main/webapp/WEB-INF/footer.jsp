@@ -15,10 +15,10 @@
                 Negozio di informatica che offre una vasta gamma di PC assemblati da esperti nel settore per soddisfare i clienti pi&ugrave; esigenti.
             </p>
             <p>
-                <a href="https://www.facebook.com/" target="_blank"><img src="./images/fb.png" alt="Facebook" style="width: 40px;"></a>
-                <a href="https://www.twitter.com/" target="_blank"><img src="./images/tw.png" alt="Twitter" style="width: 40px;"></a>
-                <a href="https://www.instagram.com/" target="_blank"><img src="./images/ig.png" alt="Instagram" style="width: 40px;"></a>
-                <a href="https://www.youtube.com/" target="_blank"><img src="./images/yt.png" alt="YouTube" style="width: 40px;"></a>
+                <a href="https://www.facebook.com/" target="_blank"><img src="<%=request.getContextPath()%>/images/fb.png" alt="Facebook" style="width: 40px;"></a>
+                <a href="https://www.twitter.com/" target="_blank"><img src="<%=request.getContextPath()%>/images/tw.png" alt="Twitter" style="width: 40px;"></a>
+                <a href="https://www.instagram.com/" target="_blank"><img src="<%=request.getContextPath()%>/images/ig.png" alt="Instagram" style="width: 40px;"></a>
+                <a href="https://www.youtube.com/" target="_blank"><img src="<%=request.getContextPath()%>/images/yt.png" alt="YouTube" style="width: 40px;"></a>
             </p>
         </div>
         <div class="single-item-nohover item-foot" >
