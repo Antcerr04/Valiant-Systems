@@ -29,7 +29,7 @@
 </head>
 <body>
 
-<%-- Se l'utente NON è loggato, non può cambiare password: reindirizza alla home --%>
+<%-- If the user is NOT logged in, he cannot change his password: redirect to the home page --%>
 <c:if test="${utente == null}">
   <c:redirect url="index.jsp"/>
 </c:if>
@@ -56,7 +56,7 @@
              required title="Almeno 8 caratteri, una maiuscola, un numero e un carattere speciale"
              maxlength="50" placeholder="Inserisci la nuova password">
 
-      <div id="feedback" style="display: none; padding: 10px; background: #f9f9f9; border-radius: 5px; margin-top: 10px;">
+      <div id="feedback" style="display: none; padding: 10px; background: transparent; border-radius: 5px; margin-top: 10px;">
         <p id="lenght" class="invalid">Almeno 8 caratteri</p>
         <p id="uppercase" class="invalid">Almeno una lettera maiuscola</p>
         <p id="number" class="invalid">Almeno un numero</p>

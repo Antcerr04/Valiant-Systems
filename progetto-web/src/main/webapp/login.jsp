@@ -93,8 +93,8 @@ font-size: 18px;">
                     <label for="codice-verifica">Codice di verifica (inviato via email)</label>
                     <input type="text" id="codice-verifica" name="codice" maxlength="6" pattern="^\d{6}$" style="width: 100%" required>
 
-                    <label for="resetPassword">Nuova password</label>
-                    <input type="password" id="resetPassword" name="newPassword" style="width: 100%" required>
+                    <label for="registerPassword">Nuova password</label>
+                    <input type="password" id="registerPassword" name="newPassword" style="width: 100%" required>
                     <div id="feedback" style="display: none">
                         <p id="lenght" class="invalid">Almeno 8 caratteri</p>
                         <p id="uppercase" class="invalid">Almeno una lettera maiuscola</p>
