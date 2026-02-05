@@ -118,6 +118,14 @@ public class Manager {
     }
 
     /**
+     * Method used to get clean Password of the manager
+     * @return password of the Manager
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
      * Set password of the manager
      * @param password clear of the manager
      */
@@ -194,5 +202,13 @@ public class Manager {
                 password.matches(".*[A-Z].*") &&
                 password.matches(".*[0-9].*") &&
                 password.matches(".*[!@#\\$%\\^&\\*\\)\\(+=._-].*");
+    }
+
+    /**
+     * Method used to verify that User is a Manager
+     * @return true
+     */
+    public boolean isManager(){
+        return true;
     }
 }

@@ -57,13 +57,13 @@ async function validateEmail(input) {
 }
 
 
+
 //manages the validation of the registration form
 async function initFormValidation(form) {
     const username = form.querySelector("#username");
     const email = form.querySelector("#register-email")
     const password = form.querySelector("#registerPassword");
 
-    initPasswordValidation(password);
 
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -95,7 +95,7 @@ async function initFormValidation(form) {
 
     async function initPasswordResetValidation(form) {
         // Cerchiamo l'input con l'ID corretto
-        const inputPassword = form.querySelector("#resetPassword");
+        const inputPassword = form.querySelector('input[type="password"]');
 
         form.addEventListener("submit", function (event) {
             // Prendiamo il valore attuale della password al momento del click
@@ -117,11 +117,13 @@ async function initFormValidation(form) {
 
 
 
+
+
 //Initialization
 document.addEventListener("DOMContentLoaded", function () {
     const resetLink = document.getElementById("reset-password");
     const loginForm = document.getElementById("form-login");
-    const resetForm = document.getElementById("form-reset");
+    const resetForm = document.getElementById("formVerifyEmail");
 
     if (resetLink && loginForm && resetForm) {
         resetLink.addEventListener("click", function (e) {
@@ -130,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
             resetForm.style.display = "block";
         });
 
-        initPasswordResetValidation(resetForm);
 
     }
 

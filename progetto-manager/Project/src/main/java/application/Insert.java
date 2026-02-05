@@ -79,4 +79,18 @@ public class Insert {
         }
         return false;
     }
+
+    // METODO PER LA GUI (Usato dalla AdministratorInterface)
+    public static String insertManagerGUI(ManagerDAO service, Manager m) {
+        if (!Manager.validateNome(m.getNome())) return "Nome non valido";
+        if (!Manager.validateCognome(m.getCognome())) return "Cognome non valido";
+        if (!Manager.validateEmail(m.getEmail())) return "Email non valida";
+        if (service.existsEmail(m.getEmail())) return "Email già esistente";
+        if (!Manager.validateUsername(m.getUsername())) return "Username non valido";
+        if (service.existsUsername(m.getUsername())) return "Username già esistente";
+        if (!Manager.validatePassword(m.getPassword())) return "Password non valida";
+
+        m.setPasswordHash(m.getPassword());
+        return service.insertManager(m) ? "OK" : "Errore database";
+    }
 }

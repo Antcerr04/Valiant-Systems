@@ -28,4 +28,17 @@ function attivaValidazioneRequisiti() {
 }
 
 
-document.addEventListener("DOMContentLoaded", attivaValidazioneRequisiti);
+document.addEventListener("DOMContentLoaded", function () {
+    const registerForm = document.getElementById("form-register");
+    const recoveryPasswordForm= document.getElementById("formRecoveryPassword");
+    const passwordUpdate=document.getElementById("form-updatePassword");
+    if (registerForm){
+        attivaValidazioneRequisiti();
+    }
+    if(recoveryPasswordForm){
+        attivaValidazioneRequisiti();
+    }
+    if (passwordUpdate) {
+        attivaValidazioneRequisiti();
+    }
+});

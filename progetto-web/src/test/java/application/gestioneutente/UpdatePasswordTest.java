@@ -106,7 +106,7 @@ public class UpdatePasswordTest {
         when(session.getAttribute("utente")).thenReturn(utente);
         when(utente.getUsername()).thenReturn("Antcerr04");
         when(daoMock.getUserByCredentials("Antcerr04",PASSWORD_ATTUALE)).thenReturn(utente);
-        when(request.getParameter("repeatPassword")).thenReturn("Antonio2006@");
+        when(request.getParameter("repeatPassword")).thenReturn("Antonio200@");
         servlet.doPost(request,response);
         verify(request).setAttribute(eq("errorMSG"),eq("Le password non corrispondono"));
         verify(dispatcher).forward(request, response);

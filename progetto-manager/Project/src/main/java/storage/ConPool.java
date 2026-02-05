@@ -27,4 +27,10 @@ public class ConPool {
         }
         return dataSource.getConnection();
     }
+    public static void closePool() {
+        if (dataSource != null) {
+            dataSource.close();
+            dataSource = null;
+        }
+    }
 }

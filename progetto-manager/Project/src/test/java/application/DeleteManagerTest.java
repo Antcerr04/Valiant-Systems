@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class testDeleteManager {
+public class DeleteManagerTest {
 
     private ManagerDAO daoMock;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -66,7 +66,7 @@ public class testDeleteManager {
      * Method used to test when email doesn't exist
      */
     @Test
-    void TC_1_6_2_EmailEsistente(){
+    void TC_1_6_2_EmailInesistente(){
         when(daoMock.isManager(EMAIL)).thenReturn(false);
         simulaInput(EMAIL);
         Delete.removeManager(daoMock);

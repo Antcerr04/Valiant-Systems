@@ -49,4 +49,8 @@ public class Delete {
 
 
     }
+    public static boolean removeManager(ManagerDAO dao, String email) {
+        if (!Manager.validateEmail(email)) return false;
+        return dao.deleteManager(email);
+    }
 }

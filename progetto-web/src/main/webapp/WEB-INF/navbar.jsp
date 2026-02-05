@@ -51,7 +51,6 @@
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/update.jsp" title="Modifica dati utente"><span class="material-icons" style="width: 30px">edit_square</span> Modifica dati</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/updatePassword.jsp" title="Modifica password"><span class="material-icons" style="width: 30px">vpn_key</span> Modifica Password</a>
               <a class="dropdown-result user-drop-hvr-child" href="<%=request.getContextPath()%>/logout" title="Disconnetti utente"><span class="material-icons" style="width: 30px">logout</span> Logout</a>
-              <a  class="dropdown-result user-drop-hvr-child" href="javascript:void(0)" onclick="event.stopImmediatePropagation(); confermaEliminaAccount();" title="Elimina Acccount"><span class="material-icons" style="width: 30px">delete</span> Elimina account</a>
             </div>
           </li>
         </c:if>

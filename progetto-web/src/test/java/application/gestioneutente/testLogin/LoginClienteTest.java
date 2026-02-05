@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 
 public class LoginClienteTest extends AbstractLoginTest {
     private static final String user = "Mario04";
-    private static final String pass = "Mario200@";
+    private static final String pass = "Mario2004@";
 
     /**
      * Method used to test a correct Client login
