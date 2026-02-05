@@ -72,7 +72,7 @@ class RegisterClienteTest {
     @Test
     void TC_1_1_1_NomeErrato() throws Exception {
         // Override only the parameter name
-        when(request.getParameter("name")).thenReturn("Mario@");
+        when(request.getParameter("name")).thenReturn("Mari@");
 
         servlet.doPost(request, response);
         verifyFailure();

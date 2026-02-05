@@ -36,7 +36,7 @@ public class AbstractLoginTest {
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
 
-        when(request.getParameter("username")).thenReturn("Mario2004");
+        when(request.getParameter("username")).thenReturn("Mario04");
         when(request.getParameter("password")).thenReturn("Mario2004@");
     }
 
@@ -108,7 +108,7 @@ public class AbstractLoginTest {
      */
     @Test
     void TC_1_3_4_PasswordNonCorrispondente() throws Exception {
-        String usernameInserito = "Mario2004";
+        String usernameInserito = "Mario04";
         String passwordInserita = "Mario2004@@";
 
         when(request.getParameter("username")).thenReturn(usernameInserito);

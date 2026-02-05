@@ -293,7 +293,9 @@ label{
 
 form#form-login input, form#form-reset input, form#form-update-utente,
 form#form-update-product,
-form#form-create-product{
+form#form-create-product,
+form#formmVerifyEmailRecovery,
+form#formRecoveryPassword{
     margin-bottom: 20px;
 }
 
@@ -307,7 +309,9 @@ form#form-update-utente select,
 form#form-register select,
 form#form-update-product input,
 form#form-create-product input,
-form#form-updatePassword input{
+form#form-updatePassword input,
+form#formVerifyEmailRecovery input[type=email],
+form#formRecoveryPassword input{
     height:40px;
     padding-left: 10px;
     font-size: 18px;

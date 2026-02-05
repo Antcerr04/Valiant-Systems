@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
 
                 //Create cookie to show a message after login
                 Cookie cookie = new Cookie("notification", "Benvenuto-" + utente.getUsername() + "!");
-                cookie.setMaxAge(1);
+                cookie.setMaxAge(10);
                 cookie.setSecure(true);
                 response.addCookie(cookie);
                 response.sendRedirect("index.jsp");

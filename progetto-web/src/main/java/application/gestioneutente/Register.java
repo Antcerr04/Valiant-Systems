@@ -8,7 +8,7 @@ import storage.gestioneutente.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "Register", urlPatterns = {"/Register", "/RegisterManager"})
+@WebServlet(name = "Register", value = "/Register")
 public class Register extends HttpServlet {
 
     private FacadeDAO dao = new FacadeDAO();
@@ -110,8 +110,7 @@ public class Register extends HttpServlet {
 
     private void sendSuccessNotification(HttpServletResponse response) throws IOException {
         Cookie cookie = new Cookie("notification", "Registrazione-avvenuta-con-successo!");
-        cookie.setMaxAge(5); // Aumentato a 5 secondi per sicurezza
-        cookie.setPath("/"); // Importante per rendere il cookie leggibile ovunque
+        cookie.setMaxAge(1); // Aumentato a 5 secondi per sicurezza
         cookie.setSecure(true);
         response.addCookie(cookie);
         response.sendRedirect("login.jsp");
