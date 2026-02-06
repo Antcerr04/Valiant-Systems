@@ -79,8 +79,11 @@ public class UtenteDAO {
                     utente = cliente;
                 } else {
                     //Manager
-                    utente = new Manager();
+                    utente = new Utente();
+                    utente.setRuolo("manager");
                 }
+                if(ruolo==1)
+                    utente.setRuolo("cliente");
                 //Campi comuni
                 utente.setId(rs.getInt("id_utente"));
                 utente.setNome(rs.getString("nome"));

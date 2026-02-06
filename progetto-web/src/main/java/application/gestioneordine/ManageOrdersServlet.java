@@ -23,7 +23,7 @@ public class ManageOrdersServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
         if(utente != null){ //check if user is present in the session (logged in)
-            if(utente instanceof Manager){//check if user is a Manager
+            if(utente.getRuolo()=="manager"){//check if user is a Manager
                 FacadeDAO dao = new FacadeDAO();
                 List<Ordine> orderList = dao.getAllUnshippedOrders();//retrieve all unshipped orders
                 request.setAttribute("orderList", orderList);

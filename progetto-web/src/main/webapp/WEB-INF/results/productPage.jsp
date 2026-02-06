@@ -69,7 +69,7 @@
         <span style="text-align: left">RAM:</span><span style="text-align: right">${prodotto.RAM_size} GB @${prodotto.RAM_speed} MHz</span>
       </div>
       <br>
-      <c:if test = "${!utente.manager}">
+      <c:if test = "${utente.ruolo!='manager'}">
         <c:choose>
           <c:when test="${prodotto.quantita > 0}">
             <form method="get" action="addToCart">
@@ -82,7 +82,7 @@
           </c:when>
         </c:choose>
       </c:if>
-      <c:if test="${utente.manager}">
+      <c:if test="${utente.ruolo=='manager'}">
         <form method="post" action="UpdateProduct">
           <input type="hidden" name="id" value="${prodotto.id}">
           <input type="hidden" name="source" value="showAll">

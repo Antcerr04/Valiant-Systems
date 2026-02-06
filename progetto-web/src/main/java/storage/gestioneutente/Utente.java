@@ -20,6 +20,7 @@ public class Utente {
     private String email;
     private String password;
     private String passwordHash;
+    private String ruolo;
 
 
     /**
@@ -170,13 +171,6 @@ public class Utente {
     }
 
     /**
-     * @return false because the default is that the Utente is a Cliente and not a Manager
-     */
-    public boolean isManager() {
-        return false;
-    }
-
-    /**
      * @param nome to validate
      * @return true if nome respects parameters, else return false
      */
@@ -222,5 +216,13 @@ public class Utente {
                 password.matches(".*[A-Z].*") &&
                 password.matches(".*[0-9].*") &&
                 password.matches(".*[!@#\\$%\\^&\\*\\)\\(+=._-].*");
+    }
+
+    public String getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
     }
 }
