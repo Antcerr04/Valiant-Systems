@@ -36,7 +36,7 @@ public class Modifica extends HttpServlet {
                 String cap=req.getParameter("cap");
                 String city=req.getParameter("city");
 
-                //Validation name and suername
+                //Validation name and surname
                 if(!Utente.validateNome(nome) || !Utente.validateCognome(cognome)){
                     req.setAttribute("errorMSG", "Nome o cognome non corretti");
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/results/error.jsp");

@@ -20,7 +20,7 @@ class ClienteTest {
                 "Campagna"
         );
 
-        Cliente cliente = new Cliente(
+        Utente utente = new Utente(
                 "Antonio",
                 "Cerrone",
                 "antonio123",
@@ -29,14 +29,14 @@ class ClienteTest {
                 indirizzo
         );
 
-        assertEquals("Antonio", cliente.getNome());
-        assertEquals("Cerrone", cliente.getCognome());
-        assertEquals("antonio123", cliente.getUsername());
-        assertEquals("antonio@email.it", cliente.getEmail());
-        assertEquals(indirizzo, cliente.getIndirizzo());
+        assertEquals("Antonio", utente.getNome());
+        assertEquals("Cerrone", utente.getCognome());
+        assertEquals("antonio123", utente.getUsername());
+        assertEquals("antonio@email.it", utente.getEmail());
+        assertEquals(indirizzo, utente.getIndirizzo());
 
         // saldo of default
-        assertEquals(500.0, cliente.getSaldo());
+        assertEquals(5000.0, utente.getSaldo());
     }
 
     /**
@@ -44,11 +44,11 @@ class ClienteTest {
      */
     @Test
     void testSetSaldo() {
-        Cliente cliente = new Cliente();
+        Utente utente = new Utente();
 
-        cliente.setSaldo(200.0);
+        utente.setSaldo(200.0);
 
-        assertEquals(200.0, cliente.getSaldo());
+        assertEquals(200.0, utente.getSaldo());
     }
 
     /**
@@ -56,7 +56,7 @@ class ClienteTest {
      */
     @Test
     void testSetIndirizzo() {
-        Cliente cliente = new Cliente();
+        Utente utente = new Utente();
 
         Indirizzo indirizzo = new Indirizzo(
                 "Via Roma",
@@ -67,8 +67,8 @@ class ClienteTest {
                 "Campagna"
         );
 
-        cliente.setIndirizzo(indirizzo);
+        utente.setIndirizzo(indirizzo);
 
-        assertEquals(indirizzo, cliente.getIndirizzo());
+        assertEquals(indirizzo, utente.getIndirizzo());
     }
 }

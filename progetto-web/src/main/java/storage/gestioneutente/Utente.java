@@ -20,7 +20,9 @@ public class Utente {
     private String email;
     private String password;
     private String passwordHash;
+    private Double saldo = 5000.0; //default
     private String ruolo;
+    private Indirizzo indirizzo;
 
 
     /**
@@ -45,6 +47,24 @@ public class Utente {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    /**
+     * Contruct for specify the role
+     * @param nome of user
+     * @param cognome of user
+     * @param username of user
+     * @param email of user
+     * @param password of user
+     * @param indirizzo of user
+     */
+    public Utente(String nome, String cognome, String username, String email, String password, Indirizzo indirizzo) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.indirizzo = indirizzo;
     }
 
     /**
@@ -218,11 +238,52 @@ public class Utente {
                 password.matches(".*[!@#\\$%\\^&\\*\\)\\(+=._-].*");
     }
 
+    /**
+     * Method used to get role of the user
+     * @return role
+     */
     public String getRuolo() {
-        return ruolo;
+
+        return UtenteDAO.getRole(email);
     }
 
+    /**
+     * Method to set a role for user
+     * @param ruolo
+     */
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
+    }
+
+    /**
+     * Method used to get address of client
+     * @return
+     */
+    public Indirizzo getIndirizzo() {
+        return indirizzo;
+    }
+
+    /**
+     * Method used to set address for client
+     * @param indirizzo address to set for client
+     */
+    public void setIndirizzo(Indirizzo indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    /**
+     * Method used to get Saldo of client
+     * @return Saldo og the Client
+     */
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * Method used to set a Saldo for the client
+     * @param saldo
+     */
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
     }
 }

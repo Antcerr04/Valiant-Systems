@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import storage.FacadeDAO;
 import storage.gestioneordine.Ordine;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;
@@ -23,9 +22,9 @@ public class ShowClientOrdersServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Utente utente = (Utente) session.getAttribute("utente");
             if ( utente != null ) { //check if utente is present in the session
-                if(utente instanceof Cliente c){ //check if utente is an istance of Cliente
+                if(utente.getRuolo().equals("cliente")){ //check if utente is an istance of Cliente
                     FacadeDAO dao = new FacadeDAO();
-                    List<Ordine> orderList = dao.getClientOrders(c);
+                    List<Ordine> orderList = dao.getClientOrders(utente);
                     request.setAttribute("orderList", orderList);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/orderView.jsp");
                     dispatcher.forward(request, response);

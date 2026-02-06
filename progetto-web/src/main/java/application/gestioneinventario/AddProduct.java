@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import storage.FacadeDAO;
 import storage.gestioneinventario.Prodotto;
-import storage.gestioneutente.Manager;
 import storage.gestioneutente.Utente;
 
 import java.io.File;

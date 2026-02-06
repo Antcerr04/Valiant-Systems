@@ -25,7 +25,7 @@ public class Validate extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if (action.equals("checkUsername")) { //chiamata per il check dell'userename
+        if (action.equals("checkUsername")) { //call for username check
             boolean usernameExist = service.isUserPresent(req.getParameter("username"));
             resp.setContentType("text/plain");
             resp.setCharacterEncoding("UTF-8");

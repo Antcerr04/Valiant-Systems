@@ -43,6 +43,11 @@ public class LogoutTest {
     }
 
 
+    /**
+     * Method used to test a logout when a user isn't logged
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     public void TC_1_8_1testUtenteNULL() throws ServletException, IOException {
         when(session.getAttribute("utente")).thenReturn(null);
@@ -52,6 +57,11 @@ public class LogoutTest {
         verify(dispatcher).forward(request,response);
     }
 
+    /**
+     * Method used to test logout
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     public void TC_1_8_2testLogout() throws ServletException, IOException {
         Utente utente = mock(Utente.class);

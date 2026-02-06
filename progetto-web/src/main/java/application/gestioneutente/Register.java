@@ -53,7 +53,7 @@ public class Register extends HttpServlet {
             }
 
             // Saving client
-            Cliente cliente = new Cliente(nome, cognome, username, email, password, indirizzo);
+            Utente cliente = new Utente(nome, cognome, username, email, password, indirizzo);
             cliente.setPasswordHash(password);
 
             dao.saveClient(cliente);

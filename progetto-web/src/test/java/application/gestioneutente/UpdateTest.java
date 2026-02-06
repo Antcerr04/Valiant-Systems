@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.ArgumentCaptor;
 import storage.FacadeDAO;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Indirizzo;
 import storage.gestioneutente.Utente;
 
@@ -41,7 +40,7 @@ public class UpdateTest {
         servlet.setFaceDAO(daoMock);
 
         Indirizzo indirizzomock = new Indirizzo("Via Vittorio Emanuele", 10, 84023, "Campania", "Salerno", "Salerno");
-        Cliente utentemock = new Cliente("Mario", "Rossi", "Mar04", "Mariorossi@gmail.com", "Mario2004@", indirizzomock);
+        Utente utentemock = new Utente("Mario", "Rossi", "Mar04", "Mariorossi@gmail.com", "Mario2004@", indirizzomock);
 
         when(request.getSession()).thenReturn(session);
         when(request.getParameter("source")).thenReturn("update");
