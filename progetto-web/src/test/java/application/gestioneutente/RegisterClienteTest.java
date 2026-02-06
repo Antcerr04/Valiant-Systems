@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import storage.FacadeDAO;
-import storage.gestioneutente.Cliente;
+import storage.gestioneutente.Utente;
 
 import static org.mockito.Mockito.*;
 
@@ -247,9 +247,9 @@ class RegisterClienteTest {
     @Test
     void TC_1_1_14_RegisterErroreImprevisto() throws Exception {
 
-        Cliente cliente = mock(Cliente.class);
+        Utente utente = mock(Utente.class);
         //Force DAO to throw a generics exception
-        doThrow(new RuntimeException("Errore DB")).when(daoMock).saveClient(any(Cliente.class));
+        doThrow(new RuntimeException("Errore DB")).when(daoMock).saveClient(any(Utente.class));
 
         servlet.doPost(request, response);
 
@@ -271,7 +271,7 @@ class RegisterClienteTest {
 
         servlet.doPost(request, response);
 
-        verify(daoMock).saveClient(any(Cliente.class));
+        verify(daoMock).saveClient(any(Utente.class));
 
         verify(response).addCookie(argThat(cookie -> cookie.getName().equals("notification") &&
                 cookie.getValue().equals("Registrazione-avvenuta-con-successo!")));

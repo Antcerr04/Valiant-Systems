@@ -48,6 +48,11 @@ public class UpdatePasswordTest {
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     }
 
+    /**
+     * Method used to test a failure when format of the actual password isn't correct
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_1_testPasswordAttualeErrata() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -58,6 +63,11 @@ public class UpdatePasswordTest {
         verify(dispatcher).forward(request, response);
     }
 
+    /**
+     * Method used to test a failure when actual password isn't correct
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_2_testPasswordNonCorrispondente() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -72,7 +82,11 @@ public class UpdatePasswordTest {
     }
 
 
-
+    /**
+     * Method used to test a failure when new Password isn't correct
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_3_testNewPasswordErrata() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -86,6 +100,11 @@ public class UpdatePasswordTest {
         verify(dispatcher).forward(request, response);
     }
 
+    /**
+     * Method used to test a failure when repeat password isn't correct
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_4_testPasswordRipetutaErrata() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -99,6 +118,11 @@ public class UpdatePasswordTest {
         verify(dispatcher).forward(request, response);
     }
 
+    /**
+     * Method used to test a failure when password repeat isn't equals new password
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_5_testPasswordNuoveNonCorrispondenti() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -112,6 +136,11 @@ public class UpdatePasswordTest {
         verify(dispatcher).forward(request, response);
     }
 
+    /**
+     * Method used to test an error into database
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_6_testErrore() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
@@ -125,6 +154,11 @@ public class UpdatePasswordTest {
         verify(dispatcher).forward(request, response);
     }
 
+    /**
+     * Method used to test the correct update password
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     void TC_1_7_7_testUpdatePassword() throws ServletException, IOException {
         Utente utente = mock(Utente.class);

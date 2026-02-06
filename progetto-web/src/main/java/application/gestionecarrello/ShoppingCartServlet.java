@@ -10,12 +10,9 @@ import jakarta.servlet.http.HttpSession;
 import storage.FacadeDAO;
 import storage.gestionecarrello.Carrello;
 import storage.gestioneinventario.Prodotto;
-import storage.gestioneordine.Ordine;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "ShoppingCartServlet", urlPatterns = {"/cart","/addToCart", "/removeFromCart"})
 public class ShoppingCartServlet extends HttpServlet {
@@ -89,7 +86,7 @@ public class ShoppingCartServlet extends HttpServlet {
             }else if (request.getServletPath().equals("/cart")) {
                 HttpSession session = request.getSession();
                 Utente utente = (Utente) session.getAttribute("utente");
-                if ( utente == null || utente instanceof Cliente ) {
+                if ( utente == null || utente.getRuolo().equals("cliente")) {
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cart.jsp");
                         dispatcher.forward(request, response);
                 }else{

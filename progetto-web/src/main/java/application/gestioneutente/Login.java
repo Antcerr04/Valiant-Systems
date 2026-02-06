@@ -44,12 +44,12 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(60 * 60); // 1 hour
                 session.setAttribute("utente", utente);
-                if (utente instanceof Cliente c) { //if the user is a client, put the address in the session
-                    session.setAttribute("indirizzo", c.getIndirizzo());
+                if (utente.getRuolo().equals("cliente")) { //if the user is a client, put the address in the session
+                    session.setAttribute("indirizzo", utente.getIndirizzo());
                 }
 
                 //Remove cart from session if a manager logs in with items in cart
-                if ((utente.getRuolo()=="manager") && ((session.getAttribute("carrelloList") != null))) {
+                if ((utente.getRuolo().equals("manager")) && ((session.getAttribute("carrelloList") != null))) {
                     session.removeAttribute("carrelloList");
                 }
 

@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import storage.FacadeDAO;
 import storage.gestioneordine.Ordine;
-import storage.gestioneutente.Manager;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;

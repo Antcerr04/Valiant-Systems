@@ -1,6 +1,5 @@
 package storage;
 
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Indirizzo;
 import storage.gestioneutente.Utente;
 import storage.gestioneutente.UtenteDAO;
@@ -117,11 +116,11 @@ public class FacadeDAO {
         return prodottoDAO.doFilter(cpu,gpu);
     }
     /**
-     * Stores a {@link Cliente} in the database.
-     * @param cliente the {@link Cliente} to add to the database
+     * Stores a {@link Utente} in the database.
+     * @param utente the {@link Utente} to add to the database
      */
-    public void saveClient(Cliente cliente) {
-        utenteDAO.doSave(cliente);
+    public void saveClient(Utente utente) {
+        utenteDAO.doSave(utente);
     }
     /**
      * Retrieves the {@link Utente} data from the database given the username and password.
@@ -163,12 +162,12 @@ public class FacadeDAO {
     }
 
     /**
-     * Gets all the order that a given {@link Cliente} has made.
-     * @param cliente the {@link Cliente} whose order have to be retrieved.
+     * Gets all the order that a given {@link Utente} has made.
+     * @param utente the {@link Utente} whose order have to be retrieved.
      * @return a list of {@link Ordine} if there are any, an empty list otherwise.
      */
-    public List<Ordine> getClientOrders(Cliente cliente){
-        return ordineDAO.doRetrieveClientOrders(cliente);
+    public List<Ordine> getClientOrders(Utente utente){
+        return ordineDAO.doRetrieveClientOrders(utente);
     }
 
     /**
@@ -181,14 +180,14 @@ public class FacadeDAO {
     }
 
     /**
-     * Checkout operation that commits the {@link Cliente}'s order to the database
+     * Checkout operation that commits the {@link Utente}'s order to the database
      * <p>Controls for the availability of the requested products, updates the product's quantity, saves the order and updates the client's balance.</p>
-     * @param cliente the {@link Cliente} that has made the checkout operation
-     * @param carrello the {@link Cliente}'s shopping cart
+     * @param utente the {@link Utente} that has made the checkout operation
+     * @param carrello the {@link Utente}'s shopping cart
      * @return an empty list if successful, a list of errors otherwise.
      */
-    public List<String> checkout(Cliente cliente, Carrello carrello) {
-        return ordineDAO.doCheckout(carrello, cliente);
+    public List<String> checkout(Utente utente, Carrello carrello) {
+        return ordineDAO.doCheckout(carrello, utente);
     }
 
     /**
@@ -199,14 +198,6 @@ public class FacadeDAO {
      */
     public boolean updateAccount(Utente utente, Indirizzo indirizzo) { return utenteDAO.updateUtente(utente,indirizzo);}
 
-    /**
-     * Method used to delete a client
-     * @param email of the client to delete
-     * @return true if client is deleted else return false
-     */
-    public boolean deleteClient(String email) {
-        return utenteDAO.removeClient(email);
-    }
 
 
     /**

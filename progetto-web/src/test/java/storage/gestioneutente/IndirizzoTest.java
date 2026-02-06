@@ -35,7 +35,7 @@ public class IndirizzoTest {
     }
 
     /**
-     * Method used to test numero civixo
+     * Method used to test numero civico
      */
     @Test
     public void numCivTest(){

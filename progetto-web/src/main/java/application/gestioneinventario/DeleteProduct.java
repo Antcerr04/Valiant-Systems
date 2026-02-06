@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import storage.FacadeDAO;
-import storage.gestioneutente.Manager;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;

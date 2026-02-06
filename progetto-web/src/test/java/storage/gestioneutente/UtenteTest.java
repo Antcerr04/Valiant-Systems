@@ -12,6 +12,7 @@ public class UtenteTest {
     public void constructorTest() {
         Utente utente = new Utente("Antonio","Cerrone","Antcerr04","cerrone812@gmail.com","Antonio2004@");
         utente.setId(1);
+        utente.setRuolo("cliente");
         assertTrue(utente.getNome().equals("Antonio"));
 
           assertEquals(utente.getEmail(),"cerrone812@gmail.com");
@@ -19,7 +20,7 @@ public class UtenteTest {
                  assertEquals(utente.getCognome(),"Cerrone");
                  assertEquals(utente.getUsername(),"Antcerr04");
                  assertEquals(utente.getPassword(), "Antonio2004@");
-                 assertEquals(utente.getRuolo(),null);
+                 assertEquals(utente.getRuolo(),"cliente");
                  assertEquals(utente.getId(),1);
 
 

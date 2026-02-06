@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ManagerDAO {
+    /**
+     * Method used to insert a new Manager
+     * @param manager to insert
+     * @return true if manager is insert, else return false
+     */
     public boolean insertManager(Manager manager) {
         String query = "insert into utente (nome,cognome,username,email,passwordHash,ruolo) values(?,?,?,?,?,?)";
 
@@ -30,6 +35,11 @@ public class ManagerDAO {
         return false;
     }
 
+    /**
+     * Method used to verify if already exists a manager with a specific username
+     * @param username to verify
+     * @return true if already exists a manager with a specific username, else return false
+     */
     public boolean existsUsername(String username) {
         String query = "Select 1 from utente where username = ?";
 
@@ -46,6 +56,11 @@ public class ManagerDAO {
         }
     }
 
+    /**
+     * Method used to verify if already exists a manager with a specific email
+     * @param email to verify
+     * @return true if already exists a user with a specif email, else return false
+     */
     public boolean existsEmail(String email) {
         String query = "Select 1 from utente where email = ?";
 
@@ -62,6 +77,11 @@ public class ManagerDAO {
         }
     }
 
+    /**
+     * Method used to verify that user is a manager
+     * @param email of the user to verify
+     * @return true if user is a manager, else return false
+     */
     public boolean isManager(String email) {
         String query = "Select 1 from utente where email = ? and ruolo = ?";
 
@@ -81,6 +101,11 @@ public class ManagerDAO {
         return false;
     }
 
+    /**
+     * Method used to delete a manager
+     * @param email of the manager to delete
+     * @return true if delete is successful, else return false
+     */
     public boolean deleteManager(String email) {
         if (existsEmail(email)) {
             String query = "Delete from utente where email = ? and ruolo = ?";

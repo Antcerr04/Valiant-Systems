@@ -1,8 +1,8 @@
 package application.gestioneutente.testLogin;
 
 import org.junit.jupiter.api.Test;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Indirizzo;
+import storage.gestioneutente.Utente;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -22,9 +22,9 @@ public class LoginClienteTest extends AbstractLoginTest {
         Indirizzo indirizzo = new Indirizzo("via Rufigliano", 10, 84022, "Campania", "Salerno", "Salerno");
 
 
-        Cliente utenteMock = mock(Cliente.class);
+        Utente utenteMock = mock(Utente.class);
 
-
+        when(utenteMock.getRuolo()).thenReturn("cliente");
         when(utenteMock.getUsername()).thenReturn(user);
         when(utenteMock.getPassword()).thenReturn(pass);
         when(utenteMock.getIndirizzo()).thenReturn(indirizzo);

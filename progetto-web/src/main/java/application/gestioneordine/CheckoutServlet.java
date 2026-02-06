@@ -9,8 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import storage.FacadeDAO;
 import storage.gestionecarrello.Carrello;
-import storage.gestionecarrello.CarrelloItem;
-import storage.gestioneutente.Cliente;
 import storage.gestioneutente.Indirizzo;
 import storage.gestioneutente.Utente;
 
@@ -24,23 +22,23 @@ public class CheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
         if(utente != null){ //check if user is present in the session (logged in)
-            if(utente instanceof Cliente cliente){//check if user is a Cliente
-                Indirizzo indirizzo = cliente.getIndirizzo();
+            if(utente.getRuolo().equals("cliente")){//check if user is a Cliente
+                Indirizzo indirizzo = utente.getIndirizzo();
                 if(indirizzo != null){//check if indirizzo is present (indirizzo should always be present, if it happens, there is an error in the code)
                     Carrello carrello = (Carrello) session.getAttribute("carrelloList");
                     if(carrello != null && !carrello.isEmpty()){//check if carrello is present and is not empty
                         double total = 0;
                         total = carrello.getCartTotal();
-                        if(cliente.getSaldo() >= total){//check if cliente has enough funds to make the order
+                        if(utente.getSaldo() >= total){//check if cliente has enough funds to make the order
                             FacadeDAO dao = new FacadeDAO();
-                            List<String> checkoutResult = dao.checkout(cliente, carrello);
+                            List<String> checkoutResult = dao.checkout(utente, carrello);
                             session.removeAttribute("carrelloList");
                             request.setAttribute("checkoutResult", checkoutResult);
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/checkoutResult.jsp");
                             dispatcher.forward(request, response);
                         }else {//cliente does not have enough funds for the order, remove cart from session and show error page
                             session.removeAttribute("carrelloList");
-                            request.setAttribute("errorMSG", "Saldo insufficiente! saldo: "+(Math.round(cliente.getSaldo() * 100) / 100.0)+"€, ordine: "+total+"€");
+                            request.setAttribute("errorMSG", "Saldo insufficiente! saldo: "+(Math.round(utente.getSaldo() * 100) / 100.0)+"€, ordine: "+total+"€");
                             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
                             dispatcher.forward(request, response);
                         }

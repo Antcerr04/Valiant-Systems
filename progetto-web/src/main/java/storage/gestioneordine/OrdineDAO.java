@@ -2,18 +2,18 @@ package storage.gestioneordine;
 
 import storage.Connector.ConPool;
 import storage.gestioneutente.Indirizzo;
-import storage.gestioneutente.Cliente;
 import storage.gestionecarrello.Carrello;
 import storage.gestionecarrello.CarrelloItem;
 import storage.gestioneinventario.Prodotto;
 import storage.gestioneinventario.ProdottoDAO;
+import storage.gestioneutente.Utente;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrdineDAO {
-    public List<Ordine> doRetrieveClientOrders(Cliente cliente) {
+    public List<Ordine> doRetrieveClientOrders(Utente cliente) {
         List<Ordine> ordineList = new ArrayList<Ordine>();
 
         try(Connection con = ConPool.getConnection()) {
@@ -65,7 +65,7 @@ public class OrdineDAO {
         return ordineList;
     }
 
-    public synchronized List<String> doCheckout(Carrello carrello, Cliente cliente) {
+    public synchronized List<String> doCheckout(Carrello carrello, Utente cliente) {
         String query="INSERT INTO ordine (utente,via,num_civico,cap,citta,provincia,regione,totale) VALUES (?,?,?,?,?,?,?,?)";
         int orderID = -1;
         double total = 0;

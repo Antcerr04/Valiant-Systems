@@ -1,7 +1,7 @@
 package application.gestioneutente.testLogin;
 
 import org.junit.jupiter.api.Test;
-import storage.gestioneutente.Manager;
+import storage.gestioneutente.Utente;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.never;
@@ -18,8 +18,9 @@ public class LoginManagerTest extends AbstractLoginTest {
     @Test
     void TC_1_3_7_LoginManagerConCarrello() throws Exception {
 
-        Manager managerMock = mock(Manager.class);
-        when(managerMock.getUsername()).thenReturn(username);
+        Utente utenteMock = mock(Utente.class);
+       when(utenteMock.getRuolo()).thenReturn("manager");
+        when(utenteMock.getUsername()).thenReturn(username);
 
 
         when(request.getParameter("username")).thenReturn(username);
@@ -29,7 +30,7 @@ public class LoginManagerTest extends AbstractLoginTest {
         when(session.getAttribute("carrelloList")).thenReturn(new java.util.ArrayList<>());
 
 
-        when(daoMock.getUserByCredentials(username, password)).thenReturn(managerMock);
+        when(daoMock.getUserByCredentials(username, password)).thenReturn(utenteMock);
 
 
         servlet.doPost(request, response);
@@ -46,12 +47,13 @@ public class LoginManagerTest extends AbstractLoginTest {
 
     @Test
     void TC_1_3_8_LoginManagerSenzaCarrello() throws Exception {
-        Manager managerMock = mock(Manager.class);
-        when(managerMock.getUsername()).thenReturn(username);
+        Utente utenteMock = mock(Utente.class);
+        utenteMock.setRuolo("manager");
+        when(utenteMock.getUsername()).thenReturn(username);
 
         // The cart is null
         when(session.getAttribute("carrelloList")).thenReturn(null);
-        when(daoMock.getUserByCredentials(username, password)).thenReturn(managerMock);
+        when(daoMock.getUserByCredentials(username, password)).thenReturn(utenteMock);
 
         servlet.doPost(request, response);
 

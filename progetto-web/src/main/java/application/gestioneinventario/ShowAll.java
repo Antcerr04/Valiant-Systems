@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import storage.gestioneutente.Manager;
 import storage.gestioneutente.Utente;
 import storage.gestioneinventario.Prodotto;
 import storage.gestioneinventario.ProdottoDAO;
