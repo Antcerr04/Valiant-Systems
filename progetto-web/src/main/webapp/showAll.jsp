@@ -99,7 +99,7 @@
                             <input type="submit" class="hbutton btn-list" value="Visualizza">
                         </form>
 
-                        <c:if test="${utente.manager}">
+                        <c:if test="${utente.ruolo == 'manager'}">
                             <form method="post" action="UpdateProduct">
                                 <input type="hidden" name="id" value="${prodotto.id}">
                                 <input type="hidden" name="source" value="showAll">

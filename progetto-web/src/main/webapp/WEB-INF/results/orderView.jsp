@@ -19,7 +19,7 @@
 <fmt:setLocale value = "en_US"/>
 <%@ include file="/WEB-INF/navbar.jsp" %>
 <div class="flex-wrapper">
-  <c:if test="${empty utente || utente.manager}">
+  <c:if test="${empty utente || utente.ruolo=='manager'}">
     <c:redirect url="/index.jsp" />
   </c:if>
 

@@ -18,7 +18,7 @@
 <body>
 <%
     Utente utente = (Utente) request.getSession().getAttribute("utente");
-    if (utente == null || !utente.isManager()) {
+    if (utente == null || (utente.getRuolo()!="manager")) {
         request.setAttribute("errorMSG", "Accesso negato. La risorsa richiesta richiede privilegi di manager.");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
         dispatcher.forward(request, response);

@@ -18,7 +18,7 @@ public class SendOrderServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
         if(utente != null) { //check if user is present in the session (logged in)
-            if (utente instanceof Manager) {
+            if(utente.getRuolo()=="manager"){
                 FacadeDAO dao = new FacadeDAO();
                 int orderID = Integer.parseInt(request.getParameter("id"));
                 if(dao.sendOrder(orderID)){

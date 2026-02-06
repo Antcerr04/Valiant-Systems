@@ -22,7 +22,7 @@
         </p>
       </div>
     </li>
-    <c:if test = "${!utente.manager}">
+    <c:if test = "${utente.ruolo!='manager'}">
       <li class="right"><a href="<%=request.getContextPath()%>/cart" title="Vai al carrello"><span class="material-icons">shopping_cart</span><c:if test="${!empty carrelloList.carrelloItemList}"><span class="material-icons cart-dot">circle</span></c:if></a></li>
     </c:if>
     <c:choose>
@@ -30,7 +30,7 @@
         <li class="right"><a href="<%=request.getContextPath()%>/login.jsp" title="Accedi/Registrati"><span class="material-icons">login</span></a></li>
       </c:when>
       <c:when test="${utente != null}">
-        <c:if test = "${utente.manager}">
+        <c:if test = "${utente.ruolo=='manager'}">
           <li class="right dropdown-hvr">
             <a href="#" title="Menu utente"><span class="material-icons">manage_accounts</span></a>
             <div class="dropdown-content-hvr user-drop-hvr">
@@ -43,7 +43,7 @@
             </div>
           </li>
         </c:if>
-        <c:if test = "${!utente.manager}">
+        <c:if test = "${utente.ruolo!='manager'}">
           <li class="right dropdown-hvr">
             <a href="#" title="Menu utente"><span class="material-icons">person</span></a>
             <div class="dropdown-content-hvr user-drop-hvr">

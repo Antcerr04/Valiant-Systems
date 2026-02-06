@@ -22,7 +22,7 @@ public class DeleteProduct extends HttpServlet {
         HttpSession session = req.getSession();
         //Get utente in the session
         Utente utente = (Utente) session.getAttribute("utente");
-        if (utente instanceof Manager) {
+        if (utente.getRuolo() == "manager") {
             //If utente is Manager
             if (req.getParameter("id") != null && !req.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(req.getParameter("id"));

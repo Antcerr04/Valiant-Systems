@@ -59,7 +59,7 @@ public class ShowAll extends HttpServlet {
                 if (utente == null) {
                     resp.sendRedirect("login.jsp");
                 } else {
-                    if (utente instanceof Manager) {
+                    if(utente.getRuolo()=="manager"){
                         ProdottoDAO service = new ProdottoDAO();
                         List<Prodotto> prodottoList = service.doRetrieveAll();
                         req.setAttribute("prodottoList", prodottoList);

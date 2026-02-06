@@ -19,7 +19,7 @@ public class UtenteTest {
                  assertEquals(utente.getCognome(),"Cerrone");
                  assertEquals(utente.getUsername(),"Antcerr04");
                  assertEquals(utente.getPassword(), "Antonio2004@");
-                 assertFalse(utente.isManager());
+                 assertEquals(utente.getRuolo(),null);
                  assertEquals(utente.getId(),1);
 
 

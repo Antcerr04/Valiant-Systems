@@ -25,7 +25,7 @@ public class UpdateProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String source = request.getParameter("source");
         Utente utente = (Utente) request.getSession().getAttribute("utente");
-        if (utente instanceof Manager) {
+        if (utente.getRuolo()=="manager") {
             if (source != null) {
                 if (source.equals("showAll")) {  //called from adminView to show form for update product
                     if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {

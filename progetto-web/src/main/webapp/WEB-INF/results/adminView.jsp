@@ -19,7 +19,7 @@
 <body>
 <%@ include file="/WEB-INF/navbar.jsp" %>
 <div class="flex-wrapper">
-    <c:if test="${!utente.manager}">
+    <c:if test="${utente.ruolo!='manager'}">
         <c:redirect url="/index.jsp"/>
     </c:if>
     <c:choose>

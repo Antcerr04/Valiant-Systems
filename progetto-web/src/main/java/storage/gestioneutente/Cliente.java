@@ -5,7 +5,7 @@ package storage.gestioneutente;
  * This class represents the clients that use the system to do orders
  */
 public class Cliente extends Utente {
-    private Double saldo = 500.0; //default
+    private Double saldo = 5000.0; //default
     private Indirizzo indirizzo;
 
     /**

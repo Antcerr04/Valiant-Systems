@@ -27,7 +27,7 @@ public class AddProduct extends HttpServlet {
         HttpSession session = req.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
 
-        if(utente instanceof Manager) {
+        if(utente.getRuolo()=="manager") {
             try{
                 req.setCharacterEncoding("UTF-8");
 

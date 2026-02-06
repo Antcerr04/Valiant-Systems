@@ -27,7 +27,10 @@
   <c:when test="${utente == null}">
     <c:redirect url="login.jsp"/>
   </c:when>
-  <c:when test="${utente != null && !utente.manager}"><!-- Se l'utente è nella sessione mostra pagina per modificare i dati -->
+  <c:when  test="${utente!=null && utente.ruolo=='manager'}">
+    <c:redirect url="/index.jsp" />
+  </c:when>
+  <c:when test="${utente != null && (utente.ruolo=='cliente')}"><!-- Se l'utente è nella sessione mostra pagina per modificare i dati -->
     <div>
       <div class="container container-alt">
         <a href="index.jsp" title="Vai alla homepage" style="position: relative"><img src="images/logo-form.png"
