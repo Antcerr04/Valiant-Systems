@@ -44,7 +44,7 @@
                 <input type="number" id="percentualeSaldo" name="percentualeSaldo" required min="0" max="99" title="Range permesso: 0-99">
 
                 <label for="quantità">Quantità:</label>
-                <input type="number" id="quantità" name="quantità" required min="1" title="Quantità minima = 1">
+                <input type="number" id="quantità" name="quantita" required min="1" title="Quantità minima = 1">
 
                 <label for="cpu">CPU:</label>
                 <input type="text" id="cpu" name="cpu" required pattern=".{3,60}" placeholder="3-60 caratteri" title="Minimo 3 caratteri - massimo 60">

@@ -33,7 +33,6 @@ public class LoginClienteTest extends AbstractLoginTest {
         when(request.getParameter("password")).thenReturn(pass);
         when(request.getSession()).thenReturn(session);
 
-
         when(daoMock.getUserByCredentials(user, pass)).thenReturn(utenteMock);
 
         servlet.doPost(request, response);
