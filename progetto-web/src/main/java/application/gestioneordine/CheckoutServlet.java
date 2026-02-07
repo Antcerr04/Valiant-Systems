@@ -17,6 +17,11 @@ import java.util.List;
 
 @WebServlet(name = "CheckoutServlet", value = "/checkout")
 public class CheckoutServlet extends HttpServlet {
+    private FacadeDAO dao = new FacadeDAO();
+
+    public void setFacadeDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -30,12 +35,17 @@ public class CheckoutServlet extends HttpServlet {
                         double total = 0;
                         total = carrello.getCartTotal();
                         if(utente.getSaldo() >= total){//check if cliente has enough funds to make the order
-                            FacadeDAO dao = new FacadeDAO();
-                            List<String> checkoutResult = dao.checkout(utente, carrello);
-                            session.removeAttribute("carrelloList");
-                            request.setAttribute("checkoutResult", checkoutResult);
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/checkoutResult.jsp");
-                            dispatcher.forward(request, response);
+                            try{
+                                List<String> checkoutResult = dao.checkout(utente, carrello);
+                                session.removeAttribute("carrelloList");
+                                request.setAttribute("checkoutResult", checkoutResult);
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/checkoutResult.jsp");
+                                dispatcher.forward(request, response);
+                            }catch(RuntimeException re){
+                                request.setAttribute("exception", re);
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                                dispatcher.forward(request, response);
+                            }
                         }else {//cliente does not have enough funds for the order, remove cart from session and show error page
                             session.removeAttribute("carrelloList");
                             request.setAttribute("errorMSG", "Saldo insufficiente! saldo: "+(Math.round(utente.getSaldo() * 100) / 100.0)+"€, ordine: "+total+"€");
