@@ -1,39 +1,29 @@
 package application.gestioneordine;
 
-import application.gestioneutente.Login;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.MockedStatic;
-import storage.Connector.ConPool;
 import storage.FacadeDAO;
 import storage.gestionecarrello.Carrello;
 import storage.gestionecarrello.CarrelloItem;
 import storage.gestioneinventario.Prodotto;
-import storage.gestioneordine.OrdineDAO;
 import storage.gestioneutente.Indirizzo;
 import storage.gestioneutente.Utente;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class CheckoutTest {
-    private CheckoutServlet servlet;
+    private Checkout servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
@@ -42,7 +32,7 @@ public class CheckoutTest {
 
     @BeforeEach
     void setUp() {
-        servlet = new CheckoutServlet();
+        servlet = new Checkout();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         session = mock(HttpSession.class);
@@ -132,52 +122,27 @@ public class CheckoutTest {
     @Test
     public void TC_2_1_6testInsuffProdQTY() throws ServletException, IOException, SQLException {
 
-        //dipende dal db,controllare prima di eseguire
-        Prodotto p = new Prodotto();
-        p.setId(1);
-        p.setNome("PC");
-        p.setPrezzo(1000);
-        p.setQuantita(1);
-        p.setPercSaldo(0);
-        p.setImmagine("DEFAULT.png");
-
-        CarrelloItem item = mock(CarrelloItem.class);
-        when(item.getProdotto()).thenReturn(p);
-        when(item.getQuantita()).thenReturn(5);
-
-        Carrello carrello = mock(Carrello.class);
-        when(carrello.getCarrelloItemList()).thenReturn(List.of(item));
-        carrello.addCarrelloItem(p);
-
         Utente cliente = mock(Utente.class);
-        //Indirizzo indirizzo = new Indirizzo("via Nazionale",1,84025,"Campania","Salerno","Eboli");
         Indirizzo indirizzo = mock(Indirizzo.class);
+        Carrello carrello = mock(Carrello.class);
         when(cliente.getRuolo()).thenReturn("cliente");
-        when(cliente.getId()).thenReturn(1);
         when(cliente.getSaldo()).thenReturn(5000.0);
         when(cliente.getIndirizzo()).thenReturn(indirizzo);
-
-
         when(session.getAttribute("utente")).thenReturn(cliente);
-        when(cliente.getIndirizzo()).thenReturn(indirizzo);
-        when(cliente.getRuolo()).thenReturn("cliente");
         when(session.getAttribute("carrelloList")).thenReturn(carrello);
         when(carrello.isEmpty()).thenReturn(false);
+        when(carrello.getCartTotal()).thenReturn(100.0);
+        List<String> errors = new ArrayList<>();
+        errors.add("La quantità richiesta di PC non è disponibile");
+        when(daoMock.checkout(cliente, carrello)).thenReturn(errors);
 
-
-
-        //List<String> errors =daoMock.checkout(cliente,carrello);
-
-        FacadeDAO dao = new FacadeDAO();
-        List<String> errors = dao.checkout(cliente, carrello);
-
-
-        assertFalse(errors.isEmpty());
-        assertTrue(errors.get(0).contains("La quantità richiesta di "));
-
-
-
+        servlet.doGet(request, response);
+        verify(request).setAttribute(eq("checkoutResult"), eq(errors));
+        verify(request).getRequestDispatcher("/WEB-INF/results/checkoutResult.jsp");
+        verify(dispatcher).forward(request, response);
     }
+
+
 
     @Test
     public void TC_2_1_7DBError() throws Exception {

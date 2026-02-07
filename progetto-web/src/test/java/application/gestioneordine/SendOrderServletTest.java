@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public class SendOrderServletTest {
-    private SendOrderServlet servlet;
+    private SendOrder servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
@@ -26,7 +26,7 @@ public class SendOrderServletTest {
 
     @BeforeEach
     void setUp() {
-        servlet = new SendOrderServlet();
+        servlet = new SendOrder();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         session = mock(HttpSession.class);

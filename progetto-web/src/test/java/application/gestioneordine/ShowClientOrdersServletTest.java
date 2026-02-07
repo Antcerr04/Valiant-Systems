@@ -16,7 +16,7 @@ import java.io.IOException;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 public class ShowClientOrdersServletTest {
-    private ShowClientOrdersServlet servlet;
+    private ShowClientOrders servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
@@ -25,7 +25,7 @@ public class ShowClientOrdersServletTest {
 
     @BeforeEach
     void setUp() {
-        servlet = new ShowClientOrdersServlet();
+        servlet = new ShowClientOrders();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         session = mock(HttpSession.class);

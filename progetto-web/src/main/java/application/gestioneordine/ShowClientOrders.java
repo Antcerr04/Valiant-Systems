@@ -14,8 +14,8 @@ import storage.gestioneutente.Utente;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ShowClientOrdersServlet", value = "/orders")
-public class ShowClientOrdersServlet extends HttpServlet {
+@WebServlet(name = "ShowClientOrders", value = "/orders")
+public class ShowClientOrders extends HttpServlet {
     private FacadeDAO dao = new FacadeDAO();
 
     public void setFacadeDAO(FacadeDAO dao) {

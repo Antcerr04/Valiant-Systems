@@ -15,8 +15,8 @@ import storage.gestioneutente.Utente;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CheckoutServlet", value = "/checkout")
-public class CheckoutServlet extends HttpServlet {
+@WebServlet(name = "Checkout", value = "/checkout")
+public class Checkout extends HttpServlet {
     private FacadeDAO dao = new FacadeDAO();
 
     public void setFacadeDAO(FacadeDAO dao) {
