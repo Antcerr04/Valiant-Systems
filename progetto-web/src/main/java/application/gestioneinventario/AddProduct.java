@@ -26,7 +26,7 @@ public class AddProduct extends HttpServlet {
         HttpSession session = req.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
 
-        if(utente.getRuolo()=="manager") {
+        if(utente.getRuolo().equals("manager")) {
             try{
                 req.setCharacterEncoding("UTF-8");
 
@@ -35,7 +35,7 @@ public class AddProduct extends HttpServlet {
                 String prezzo=req.getParameter("prezzoProdotto");
                 Part image = req.getPart("immagineProdotto");
                 String saldoStr = req.getParameter("percentualeSaldo");
-                String quantita = req.getParameter("quantità");
+                String quantita = req.getParameter("quantita");
                 String cpu= req.getParameter("cpu").trim();
                 String gpu= req.getParameter("gpu").trim();
                 String ramSizeStr = req.getParameter("RAMsize");
@@ -68,7 +68,8 @@ public class AddProduct extends HttpServlet {
                 if(image == null || image.getSize()==0) {
                     nomeFile="DEFAULT.png";
                 }else{
-                    String uploadPath = req.getServletContext().getRealPath("") + "/images/PCimages/";
+                    String uploadPath = req.getServletContext().getRealPath("/") + "images" + File.separator + "PCimages" + File.separator;
+                    System.out.print("Percorso"+uploadPath);
                     String tempFileName = image.getSubmittedFileName();
                     nomeFile = image.getSubmittedFileName();
                     File file = new File(uploadPath + tempFileName);

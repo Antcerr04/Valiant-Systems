@@ -114,16 +114,19 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
                 <executions>
-
-                    <!-- aggancia JaCoCo ai test -->
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>java/**/*</exclude>
+                                <exclude>sun/**/*</exclude>
+                                <exclude>jdk/**/*</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
-
-                    <!-- genera report -->
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
@@ -138,7 +141,6 @@
                             </excludes>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
             <plugin>

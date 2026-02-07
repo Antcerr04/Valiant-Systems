@@ -17,7 +17,7 @@ public class Delete {
 
             System.out.println("Inserisci email del manager");
             email = sc.nextLine().trim();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             System.out.println("Formato dati non corretto");
             return false;
         }
