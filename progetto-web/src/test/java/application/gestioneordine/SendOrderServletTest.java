@@ -83,10 +83,20 @@ public class SendOrderServletTest {
 
     }
 
-
+    @Test
+    public void TC_2_4_5IDnotFound() throws ServletException, IOException {
+        Utente utente = mock(Utente.class);
+        when(session.getAttribute("utente")).thenReturn(utente);
+        when(utente.getRuolo()).thenReturn("manager");
+        when(request.getParameter("id")).thenReturn("9999");
+        when(daoMock.sendOrder(any(Integer.class))).thenReturn(false);
+        servlet.doGet(request, response);
+        verify(request).setAttribute(eq("errorMSG"), eq("Ordine con id 9999 non trovato o già inviato!"));
+        verify(dispatcher).forward(request, response);
+    }
 
     @Test
-    public void TC_2_4_5ErroreDB() throws ServletException, IOException {
+    public void TC_2_4_6ErroreDB() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
         when(session.getAttribute("utente")).thenReturn(utente);
         when(utente.getRuolo()).thenReturn("manager");
@@ -98,7 +108,7 @@ public class SendOrderServletTest {
     }
 
     @Test
-    public void TC_2_4_6Success() throws ServletException, IOException {
+    public void TC_2_4_7Success() throws ServletException, IOException {
         Utente utente = mock(Utente.class);
         when(session.getAttribute("utente")).thenReturn(utente);
         when(utente.getRuolo()).thenReturn("manager");
