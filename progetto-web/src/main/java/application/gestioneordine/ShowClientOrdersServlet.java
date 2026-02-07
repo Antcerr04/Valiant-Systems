@@ -28,10 +28,16 @@ public class ShowClientOrdersServlet extends HttpServlet {
             Utente utente = (Utente) session.getAttribute("utente");
             if ( utente != null ) { //check if utente is present in the session
                 if(utente.getRuolo().equals("cliente")){ //check if utente is an istance of Cliente
-                    List<Ordine> orderList = dao.getClientOrders(utente);
-                    request.setAttribute("orderList", orderList);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/orderView.jsp");
-                    dispatcher.forward(request, response);
+                    try{
+                        List<Ordine> orderList = dao.getClientOrders(utente);
+                        request.setAttribute("orderList", orderList);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/orderView.jsp");
+                        dispatcher.forward(request, response);
+                    } catch (RuntimeException e) {
+                        request.setAttribute("exception", e);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 }else{//utente is not a Cliente, therefore can't access this service
                     request.setAttribute("errorMSG", "Operazione negata! Non si hanno i permessi corretti per la risorsa richiesta.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/error.jsp");
