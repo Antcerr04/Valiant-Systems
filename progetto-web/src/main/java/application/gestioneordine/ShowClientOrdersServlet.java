@@ -16,6 +16,11 @@ import java.util.List;
 
 @WebServlet(name = "ShowClientOrdersServlet", value = "/orders")
 public class ShowClientOrdersServlet extends HttpServlet {
+    private FacadeDAO dao = new FacadeDAO();
+
+    public void setFacadeDAO(FacadeDAO dao) {
+        this.dao = dao;
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
@@ -23,7 +28,6 @@ public class ShowClientOrdersServlet extends HttpServlet {
             Utente utente = (Utente) session.getAttribute("utente");
             if ( utente != null ) { //check if utente is present in the session
                 if(utente.getRuolo().equals("cliente")){ //check if utente is an istance of Cliente
-                    FacadeDAO dao = new FacadeDAO();
                     List<Ordine> orderList = dao.getClientOrders(utente);
                     request.setAttribute("orderList", orderList);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/results/orderView.jsp");
