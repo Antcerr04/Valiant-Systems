@@ -1,6 +1,6 @@
 function caricaRegioni() {
 
-    fetch("resources/regioni_province_italia.json")
+    fetch("jsons/regioni_province_italia.json")
         .then(response => response.json())
         .then(data => {
             const regioni = data.regioni;
