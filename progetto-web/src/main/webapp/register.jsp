@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/index-style.css" type="text/css">
     <script src="javascript/formvalidate.js" defer></script>
     <script src="javascript/PasswordCriteria.js"></script>
-    <script src="javascript/utility.js" defer></script>
+    <script src="javascript/utility.js"></script>
     <style>
         .valid {
             color: green;
